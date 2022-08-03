@@ -13,7 +13,7 @@
 			));
 			while ($categoryget = $askcategory->fetch(PDO::FETCH_ASSOC)) { ?>
 
-				<li><a href="<?php echo $categoryget['category_link'] ?>"><?php echo $categoryget['category_name'] ?></a></li>
+				<li><a href="category-<?=seo($categoryget["category_name"]) ?>"><?php echo $categoryget['category_name'] ?></a></li>
 
 			<?php } ?>
 		</ul>
