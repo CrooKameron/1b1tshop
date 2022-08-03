@@ -184,6 +184,7 @@
 				</div><!--Products-->
 				<div class="spacer"></div>
 			</div><!--Main content-->
+			
 	<?php include "sidebar.php"; ?>
 
 	<?php include "footer.php"; ?>
