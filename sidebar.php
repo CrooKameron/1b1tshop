@@ -1,7 +1,7 @@
 <div class="col-md-3">
 	<!--sidebar-->
 	<div class="title-bg">
-		<div class="title">Categories</div>
+		<div class="title"><a class="categorieslink" href="category">Categories</a></div>
 	</div>
 
 	<div class="categorybox">
@@ -13,7 +13,7 @@
 			));
 			while ($categoryget = $askcategory->fetch(PDO::FETCH_ASSOC)) { ?>
 
-				<li><a href="category-<?=seo($categoryget["category_name"]) ?>"><?php echo $categoryget['category_name'] ?></a></li>
+				<li><a href="category-<?=seo($categoryget["category_name"])?>"><?php echo $categoryget['category_name'] ?></a></li>
 
 			<?php } ?>
 		</ul>

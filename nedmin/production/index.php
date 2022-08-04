@@ -32,7 +32,9 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                   Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aliquid, numquam.
+
+                    <div style="background-image: url(https://c.tenor.com/yFexjS44cWEAAAAS/cat-cats.gif); height:750px; width:100%; background-size: 400px 200px;"></div> <!-- the cat gif -->
+                    
                   </div>
                 </div>
               </div>

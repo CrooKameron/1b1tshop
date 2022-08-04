@@ -2122,3 +2122,12 @@ html,body {
 .col-xs-129{
 	width: 300px;
 }
+
+
+/*  */
+.categorieslink{
+	color:#38414B;
+}
+.categorieslink:hover{
+	text-decoration: none;
+}

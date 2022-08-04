@@ -60,7 +60,7 @@
 						<li><a href="order.htm">Completed Orders</a></li>
 						<li><a href="contact.htm">Contact us</a></li>
 					</ul><!--footer nav-->
-					<div class="f-credit">&copy;All rights reserved by <a href="https://ppf.one/simmbo"><?php echo $settingget['settings_author'] ?></a></div>
+					<div class="f-credit">&copy;Made by <a href="https://ppf.one/simmbo"><?php echo $settingget['settings_author'] ?></a></div>
 					<a href=""><div class="payment visa"></div></a>
 					<a href=""><div class="payment paypal"></div></a>
 					<a href=""><div class="payment mc"></div></a>

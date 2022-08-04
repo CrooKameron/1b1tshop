@@ -1,4 +1,7 @@
 <?php 
+error_reporting(~E_NOTICE); //hides the notices
+//error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED); //hides the errors
+
 ob_start();
 session_start();
 
@@ -146,7 +149,7 @@ if ($count==0) {
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="<?php echo $accountget['account_image'] ?>" alt=""><?php echo $accountget['account_namesurname'] ?>
+                    <img src="<?php echo $accountget['account_image'] ?>" alt=""><?php echo $accountget['account_nickname'] ?>
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">

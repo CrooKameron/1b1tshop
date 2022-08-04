@@ -1,7 +1,25 @@
 <?php include "header.php";
 
-$askproduct = $db->prepare("SELECT * FROM product order by product_id ASC");
-$askproduct->execute();
+if (isset($_GET['sef'])) {
+
+	$askcategory=$db->prepare("SELECT * FROM category where category_seourl=:seourl");
+	$askcategory-> execute(array(	
+	'seourl' => $_GET['sef']
+	));
+	$categoryget=$askcategory->fetch(PDO::FETCH_ASSOC);
+
+	$category_id = $categoryget['category_id']; 
+
+	$askproduct = $db->prepare("SELECT * FROM where category_id=:category_id product order by product_id ASC");
+	$askproduct->execute(array(
+		'category_id' => $category_id
+	));
+
+} else {
+	$askproduct = $db->prepare("SELECT * FROM product order by product_id ASC");
+	$askproduct->execute();
+}
+
 ?>
 
 <div class="container">

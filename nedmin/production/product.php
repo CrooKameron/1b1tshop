@@ -16,16 +16,7 @@ $askproduct-> execute();
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
           <div class="x_title">
-            <h2>Product settings <?php
-                            if ($_GET['status'] == "update_sucsess") {
-                            ?> <small style="color:green;"> preferences saved! </small> <?php
-                                                                                  }
-                                                                                    ?>
-            <?php
-            if ($_GET['status'] == "update_fail") {
-            ?> <small style="color:red;"> something vent wrong! </small> <?php
-                                                                                  }
-                                                                                    ?></h2>
+            <h2>Product settings</h2>
             <div style="margin:4px 0 0 140px; position:absolute;"> 
             <?php 
                       if ($_GET['status'] == "success") {
@@ -35,6 +26,9 @@ $askproduct-> execute();
                     <?php 
                     if ($_GET['status'] == "fail") {
                       ?> <small style="color:red;"> something vent wrong! </small>  <?php
+                    }
+                    else {
+                      echo(null);
                     }
             ?>
             </div>
