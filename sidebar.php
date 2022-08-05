@@ -1,5 +1,5 @@
 <div class="col-md-3">
-	<!--sidebar-->
+	<!--sidebar	-->
 	<div class="title-bg">
 		<div class="title"><a class="categorieslink" href="category">Categories</a></div>
 	</div>

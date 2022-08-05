@@ -8,9 +8,9 @@ if (isset($_GET['sef'])) {
 	));
 	$categoryget=$askcategory->fetch(PDO::FETCH_ASSOC);
 
-	$category_id = $categoryget['category_id']; 
+	$category_id = $categoryget['category_id'];
 
-	$askproduct = $db->prepare("SELECT * FROM where category_id=:category_id product order by product_id ASC");
+	$askproduct = $db->prepare("SELECT * FROM product where product_category_id=:category_id order by product_id ASC");
 	$askproduct->execute(array(
 		'category_id' => $category_id
 	));
@@ -54,7 +54,13 @@ if (isset($_GET['sef'])) {
 				<!--Products-->
 
 
-				<?php while ($productget=$askproduct->fetch(PDO::FETCH_ASSOC)) { ?>
+				<?php
+				if(!$askproduct->rowCount()){
+					?>
+					<p style="margin:0 0 0 20px;">no product found in this category :(</p>
+					<?php
+				}
+				while ($productget=$askproduct->fetch(PDO::FETCH_ASSOC)) { ?>
 
 					<div class="col-md-4">
 						<div class="productwrap">
@@ -72,6 +78,7 @@ if (isset($_GET['sef'])) {
 
 
 				<!-- <div class="col-md-4">
+					
 						<div class="productwrap">
 						<div class="pr-img">
 							<div class="new"></div>
@@ -98,7 +105,8 @@ if (isset($_GET['sef'])) {
 				 -->
 
 
-			</div>
+			
+				</div>
 			<!--Products-->
 			<ul class="pagination shop-pag">
 				<!--pagination-->
