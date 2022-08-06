@@ -218,9 +218,9 @@ if (isset($_POST['generalsettingssend'])) {
     ));
 
     if ($update) {
-        header('Location:../production/generalsettings_form.php?status=update_success');
+        header('Location:../production/generalsettings.php?status=update_success');
     } else {
-        header('Location:../production/generalsettings_form?status=update_fail');
+        header('Location:../production/generalsettings.php?status=update_fail');
     }
 }
 
@@ -293,9 +293,9 @@ if (isset($_POST['communicationsettingssend'])) {
     ));
 
     if ($update) {
-        header('Location:../production/communicationsettings_form.php?status=update_success');
+        header('Location:../production/communicationsettings.php?status=update_success');
     } else {
-        header('Location:../production/communicationsettings_form.php?status=update_fail');
+        header('Location:../production/communicationsettings.php?status=update_fail');
     }
 }
 
@@ -316,12 +316,11 @@ if (isset($_POST['apisettingssend'])) {
     ));
 
     if ($update) {
-        header('Location:../production/apisettings_form.php?status=update_success');
+        header('Location:../production/apisettings.php?status=update_success');
     } else {
-        header('Location:../production/apisettings_form.php?status=update_fail');
+        header('Location:../production/apisettings.php?status=update_fail');
     }
 }
-
 if (isset($_POST['socialsettingssend'])) {
 
     $settingsave = $db->prepare(
@@ -342,9 +341,9 @@ if (isset($_POST['socialsettingssend'])) {
     ));
 
     if ($update) {
-        header('Location:../production/socialsettings_form.php?status=update_success');
+        header('Location:../production/socialsettings.php?status=update_success');
     } else {
-        header('Location:../production/socialsettings_form.php?status=update_fail');
+        header('Location:../production/socialsettings.php?status=update_fail');
     }
 }
 
@@ -368,9 +367,9 @@ if (isset($_POST['mailsettingssend'])) {
     ));
 
     if ($update) {
-        header('Location:../production/mailsettings_form.php?status=update_success');
+        header('Location:../production/mailsettings.php?status=update_success');
     } else {
-        header('Location:../production/mailsettings_form.php?status=update_fail');
+        header('Location:../production/mailsettings.php?status=update_fail');
     }
 }
 
@@ -395,9 +394,9 @@ if (isset($_POST['aboutuspagesettingssend'])) {
     ));
 
     if ($update) {
-        header('Location:../production/aboutsettings_form.php?status=update_success');
+        header('Location:../production/about.php?status=update_success');
     } else {
-        header('Location:../production/aboutsettings_form.php?status=update_fail');
+        header('Location:../production/about.php?status=update_fail');
     }
 }
 
@@ -715,7 +714,7 @@ if (isset($_POST['editproduct'])) {
         'product_status'=>$_POST['product_status']
     ));
 
-    if ($insert) header("Location: ../production/product.php?status=sucsess");
+    if ($insert) header("Location: ../production/product.php?status=success");
 
     else header("Location: ../production/product.php?status=fail");
 }

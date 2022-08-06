@@ -1,18 +1,20 @@
 ﻿<?php include('header.php'); 
 
 
-$askproduct = $db->prepare("SELECT * FROM product where product_id=:id");
+$askproduct = $db->prepare("SELECT * FROM product where product_seourl=:seourl");
 $askproduct->execute(array(
-    'id' => $_GET['product_id']
+    'seourl' => $_GET['sef']
 ));
 $getproduct = $askproduct->fetch(PDO::FETCH_ASSOC);
+
+
 ?>
 
 	<!-- <div class="container">
 		<ul class="small-menu">
 			<li><a href="" class="myacc">My Account</a></li>
 			<li><a href="" class="myshop">Shopping Chart</a></li>
-			<li><a href="" class="mycheck">Checkout</a></li>
+			<li><a href="" class="mycheck">Checkout</a></li>	
 		</ul>
 		<div class="clearfix"></div>
 		<div class="lines"></div>
@@ -20,7 +22,6 @@ $getproduct = $askproduct->fetch(PDO::FETCH_ASSOC);
 	
 	<div class="container">
 		<div class="row">
-			
 		</div>
 		<div class="row">
 			<div class="col-md-9"><!--Main content-->
@@ -52,7 +53,7 @@ $getproduct = $askproduct->fetch(PDO::FETCH_ASSOC);
 							<h4>Available Options</h4>
 							
 							<form class="form-horizontal ava" role="form">
-								<div class="form-group">
+								<!-- <div class="form-group">
 									<label for="mem" class="col-sm-2 control-label">Option</label>
 									<div class="col-sm-10">
 										<select class="form-control" id="mem">
@@ -65,7 +66,7 @@ $getproduct = $askproduct->fetch(PDO::FETCH_ASSOC);
 									</div>
 									<div class="clearfix"></div>
 									<div class="dash"></div>
-								</div>
+								</div> -->
 								<!-- <div class="form-group">
 									<label for="color" class="col-sm-2 control-label">Color</label>
 									<div class="col-sm-10">
@@ -132,40 +133,17 @@ $getproduct = $askproduct->fetch(PDO::FETCH_ASSOC);
 				</div>
 
 				<div class="tab-review">
-					<ul id="myTab" class="nav nav-tabs shop-tab">
-						<li class="active"><a href="#desc" data-toggle="tab">Description</a></li>
-						<li class=""><a href="#rev" data-toggle="tab">Reviews (0)</a></li>
+					<ul id="myTab" class="nav nav-tabs shop-tab" >
+						<li class="active"><a href="#desc" data-toggle="tab">Items included</a></li>
 					</ul>
-					<div id="myTabContent" class="tab-content shop-tab-ct">
-						<div class="tab-pane fade active in" id="desc">
-							<p>
-                            <?php echo $getproduct['product_detail'] ?>
-							</p>
+					<div id="myTabContent" class="tab-content shop-tab-ct"  style="padding:0 0 10px 0; ">
+
+						<div class="tab-pane fade active in" id="desc" style="margin:0 20px 0 20px;">
+							<div class="i_like_sucking_frytes_cock">
+								<?php echo $getproduct['product_detail']?>
+							</div>
 						</div>
-						<div class="tab-pane fade" id="rev">
-							<p class="dash">
-							<span>Jhon Doe</span> (11/25/2012)<br><br>
-							Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse.
-							</p>
-							<h4>Write Review</h4>
-							<form role="form">
-							<div class="form-group">
-								<input type="text" class="form-control" id="name">
-							</div>
-							<div class="form-group">
-								<textarea class="form-control" id="text"></textarea>
-							</div>
-							<div class="form-group">
-								<div class="rate"><span>Rating:</span></div>
-								<div class="starwrap">
-									<div id="default"></div>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<button type="submit" class="btn btn-default btn-red btn-sm">Submit</button>
-						</form>
-							
-						</div>
+						
 					</div>
 				</div>
 				

@@ -15,6 +15,12 @@ RewriteRule ^(.*)$ $1.php
 RewriteRule ^page-([0-9a-zA-Z-_]+)  menu-detail.php?sef=$1 [L,QSA]
 RewriteRule ^category-([0-9a-zA-Z-_]+)  category.php?sef=$1 [L,QSA]
 
+# RewriteRule ^product-([0-9a-zA-Z-_]+)  product.php?sef=$1 [L,QSA]
+RewriteRule ^product-([0-9a-zA-Z-_]+)  product.php?sef=$1&product_id=$2 [L,QSA]
+
+
+
+
 
 #404 hata sayfası yönlendirme kodu
 #ErrorDocument 404 http://www.joyakademi.com

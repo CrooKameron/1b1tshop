@@ -24,27 +24,10 @@ if (isset($_GET['sef'])) {
 
 <div class="container">
 	<div class="row">
-		<div class="col-md-12">
-			<div class="page-title-wrap">
-				<div class="page-title-inner">
-					<div class="row">
-						<div class="col-md-4">
-							<div class="bread"><a href="#">Home</a> &rsaquo; Category</div>
-							<div class="bigtitle">Category</div>
-						</div>
-						<div class="col-md-3 col-md-offset-5">
-							<button class="btn btn-default btn-red btn-lg">Purchase Theme</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="row">
 		<div class="col-md-9">
 			<!--Main content-->
 			<div class="title-bg">
-				<div class="title">Category - All products</div>
+				<div class="title">Products</div>
 				<div class="title-nav">
 					<a href="category.php"><i class="fa fa-th-large"></i>grid</a>
 					<a href="category-list.php"><i class="fa fa-bars"></i>List</a>
@@ -65,10 +48,10 @@ if (isset($_GET['sef'])) {
 					<div class="col-md-4">
 						<div class="productwrap">
 							<div class="pr-img">
-								<a href="product.htm"><img src="images\sample-3.jpg" alt="" class="img-responsive"></a>
+								<a href="product-<?=seo($productget["product_name"])?>"><img src="images\sample-3.jpg" alt="" class="img-responsive"></a>
 								<div class="pricetag on-sale"><div class="inner on-sale"><span class="onsale"><span class="oldprice">$314</span><?php echo $productget['product_moneyunit'].$productget['product_price'];?></span></div></div>
 							</div>
-							<span class="smalltitle"><a href="product.htm"><?php echo $productget['product_name'];?></a></span>
+							<span class="smalltitle"><a href="product-<?=seo($productget["product_name"])?>"><?php echo $productget['product_name'];?></a></span>
 							<span class="smalldesc">Item no.: <?php echo $productget['product_id'];?></span> 
 							<br><br> <span class="smalldesc">CATEGORY: <?php echo $productget['product_category_id'];?></span>
 						</div>

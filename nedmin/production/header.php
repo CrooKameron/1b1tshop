@@ -100,14 +100,14 @@ if ($count==0) {
                 <li><a href="index.php"><i class="fa fa-home"></i> Main Page</a></li>
                   <li><a><i class="fa fa-cogs"></i> Homepage Settings <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="generalsettings_form.php">General Settings</a></li>
-                      <li><a href="communicationsettings_form.php">Communication Settings</a></li>
-                      <li><a href="apisettings_form.php">Api Settings</a></li>
-                      <li><a href="socialsettings_form.php">Social Settings</a></li>
-                      <li><a href="mailsettings_form.php">Mail Settings</a></li>
+                      <li><a href="generalsettings.php">General Settings</a></li>
+                      <li><a href="communicationsettings.php">Communication Settings</a></li>
+                      <li><a href="apisettings.php">Api Settings</a></li>
+                      <li><a href="socialsettings.php">Social Settings</a></li>
+                      <li><a href="mailsettings.php">Mail Settings</a></li>
                     </ul>
                   </li>
-                  <li><a href="aboutsettings_form.php"><i class="fa fa-info"></i>About</a></li>
+                  <li><a href="about.php"><i class="fa fa-info"></i>About</a></li>
                   <li><a href="accounts.php"><i class="fa fa-user"></i>Accounts</a></li>
                   <li><a href="menu.php"><i class="fa fa-bars"></i>Menus</a></li>
                   <li><a href="slider.php"><i class="fa fa-map-o"></i>Sliders</a></li>
