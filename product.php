@@ -53,7 +53,7 @@ if ($count==0 || $getproduct['product_status'] == 0) {
 						<div class="productdata">
 							<div class="infospan">Item id<span><?php echo $getproduct['product_id']?></span></div>
 							<div class="infospan">Detail 2<span>H52</span></div>
-							<div class="infospan">Detail 3<span>9A7</span></div>
+							<div class="infospan">Price<span><?php echo $getproduct['product_moneyunit'].$getproduct['product_price'] ?></span></div>
 							
 							<h4>Available Options</h4>
 							
@@ -89,12 +89,14 @@ if ($count==0 || $getproduct['product_status'] == 0) {
 								<div class="form-group">
 									<label for="qty" class="col-sm-2 control-label">Qty</label>
 									<div class="col-sm-4">
-										<select class="form-control" id="qty">
-											<option>1</option>
-											<option>2</option>
-											<option>3</option>
-											<option>4</option>
-											<option>5</option>
+										<select class="form-control" value="1" name="qty" id="qty">
+											<option name="opt1">1</option>
+											<option name="opt2">2</option>
+											<option name="opt3">3</option>
+											<option name="opt4">4</option>
+											<option name="opt5">5</option>
+											<option name="opt6">10</option>
+											<option name="opt7">15</option>
 										</select>
 									</div>
 									<div class="col-sm-4">
