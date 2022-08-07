@@ -2133,8 +2133,20 @@ html,body {
 }
 
 .i_like_sucking_frytes_cock p{
-	line-height: 10px;
-	width:auto;
-	height:8px;
-	font-size: 20px; 
+	font-size: 20px;
+	margin: 0 20px 0 20px; 
+}
+
+.prdctntfonud{
+	margin:30% auto 0 auto;
+	text-align: center;
+	
+	font-size: x-large;
+	font-family: Arial, Helvetica, sans-serif;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }

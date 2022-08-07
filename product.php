@@ -1,13 +1,18 @@
-﻿<?php include('header.php'); 
+﻿<?php 
+
+include('header.php'); 
 
 
-$askproduct = $db->prepare("SELECT * FROM product where product_seourl=:seourl");
+$askproduct = $db->prepare("SELECT * FROM product where product_id=:product_id");
 $askproduct->execute(array(
-    'seourl' => $_GET['sef']
+    'product_id' => $_GET['product_id']
 ));
 $getproduct = $askproduct->fetch(PDO::FETCH_ASSOC);
 
-
+$count=$askproduct->rowCount();
+if ($count==0 || $getproduct['product_status'] == 0) {
+	header("Location:prdctnotfound.php");
+}
 ?>
 
 	<!-- <div class="container">
@@ -85,11 +90,11 @@ $getproduct = $askproduct->fetch(PDO::FETCH_ASSOC);
 									<label for="qty" class="col-sm-2 control-label">Qty</label>
 									<div class="col-sm-4">
 										<select class="form-control" id="qty">
-											<option>1
-											<option>2
-											<option>3
-											<option>4
-											<option>5
+											<option>1</option>
+											<option>2</option>
+											<option>3</option>
+											<option>4</option>
+											<option>5</option>
 										</select>
 									</div>
 									<div class="col-sm-4">
