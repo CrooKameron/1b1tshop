@@ -56,7 +56,7 @@ $settingget = $asksetting->fetch(PDO::FETCH_ASSOC);
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-6 col-md-4 main-logo">
-						<a href="index.php"><img src="<?php echo $settingget['settings_logo']; ?>" style="width:180px; height:50px;" alt="logo" class="logo img-responsive"></a>
+						<a href="index.php"><img src="<?php echo $settingget['settings_logo']; ?>" class="no-select" alt="logo" class="logo img-responsive"></a>
 					</div>
 
 
@@ -158,7 +158,7 @@ $settingget = $asksetting->fetch(PDO::FETCH_ASSOC);
 							</div>
 							<div class="navbar-collapse collapse">
 								<ul class="nav navbar-nav">
-									<li><a href="index.php" class="active">Home</a>
+									<li><a href="index.php" class="active no-select">Home</a>
 										<div class="curve"></div>
 									</li>
 									<?php
@@ -170,7 +170,7 @@ $settingget = $asksetting->fetch(PDO::FETCH_ASSOC);
 
 									while ($menuget = $askmenu->fetch(PDO::FETCH_ASSOC)) {
 
-									?><li><a href="<?php
+									?><li><a class="no-select" href="<?php
 													if (!empty($menuget['menu_url'])) {
 														echo $menuget['menu_url'];
 													} else {
@@ -189,30 +189,12 @@ $settingget = $asksetting->fetch(PDO::FETCH_ASSOC);
 									<tbody>
 										<tr>
 											<td>
-												<a href="product.htm"><img src="images\dummy-1.png" alt="" class="img-responsive"></a>
+												<a class="no-select" href="product.htm"><img src="images\dummy-1.png" alt="" class="img-responsive"></a>
 											</td>
-											<td><a href="product.htm">Casio Exilim Zoom</a><br><span>Color: green</span></td>
+											<td><a class="no-select" href="product.htm">Casio Exilim Zoom</a><br class="no-select"><span class="no-select">Color: green</span></td>
 											<td>1X</td>
 											<td>$138.80</td>
-											<td><a href=""><i class="fa fa-times-circle fa-2x"></i></a></td>
-										</tr>
-										<tr>
-											<td>
-												<a href="product.htm"><img src="images\dummy-1.png" alt="" class="img-responsive"></a>
-											</td>
-											<td><a href="product.htm">Casio Exilim Zoom</a><br><span>Color: green</span></td>
-											<td>1X</td>
-											<td>$138.80</td>
-											<td><a href=""><i class="fa fa-times-circle fa-2x"></i></a></td>
-										</tr>
-										<tr>
-											<td>
-												<a href="product.htm"><img src="images\dummy-1.png" alt="" class="img-responsive"></a>
-											</td>
-											<td><a href="product.htm">Casio Exilim Zoom</a><br><span>Color: green</span></td>
-											<td>1X</td>
-											<td>$138.80</td>
-											<td><a href=""><i class="fa fa-times-circle fa-2x"></i></a></td>
+											<td><a class="no-select" href=""><i class="fa fa-times-circle fa-2x"></i></a></td>
 										</tr>
 									</tbody>
 								</table>
