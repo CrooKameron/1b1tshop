@@ -162,7 +162,6 @@ $settingget = $asksetting->fetch(PDO::FETCH_ASSOC);
 										<div class="curve"></div>
 									</li>
 									<?php
-
 									$askmenu = $db->prepare("SELECT * FROM menu where menu_status=:menu_status order by menu_order ASC limit 5");
 									$askmenu->execute(array(
 										'menu_status' => 1
@@ -178,7 +177,6 @@ $settingget = $asksetting->fetch(PDO::FETCH_ASSOC);
 													}
 													?>"><?php echo $menuget['menu_name'] ?></a></li>
 									<?php } ?>
-
 								</ul>
 							</div>
 						</div>

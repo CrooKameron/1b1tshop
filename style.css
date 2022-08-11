@@ -675,7 +675,6 @@ html,body {
 /**Ads**/
 .ads{
 	width:100%;
-	background:#62686d;
 	height:auto;
 	margin:25px 0;
 	border-radius:5px;
@@ -2134,7 +2133,12 @@ html,body {
 
 .i_like_sucking_frytes_cock p{
 	font-size: 20px;
-	margin: 0 20px 0 20px; 
+	margin: 0 20px 0 20px;
+	padding: 10px 0 0 10px;	
+}
+
+.desccontainer{
+	padding:10px 0 30px 0;
 }
 
 .prdctntfonud{
@@ -2174,4 +2178,8 @@ img{
 	-ms-user-select: none;
 	user-select: none;
 
+}
+.img-responsive{
+	border-radius: 8px;
+	
 }

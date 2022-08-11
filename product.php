@@ -37,22 +37,21 @@ if ($count==0 || $getproduct['product_status'] == 0) {
 					<div class="col-md-6">
                     <div class="dt-img">
 							<div class="detpricetag"><div class="inner"><?php echo $getproduct['product_moneyunit'] ?><?php echo $getproduct['product_price'] ?></div></div>
-							<a class="fancybox" href="images\sample-1.jpg" data-fancybox-group="gallery" title="Cras neque mi, semper leon"><img src="images\sample-1.jpg" alt="" class="img-responsive"></a>
+							<a class="fancybox" href="images\sample-1.jpg" data-fancybox-group="gallery" title="<?php echo $getproduct['product_name']?>"><img src="images\sample-1.jpg" alt="" class="img-responsive"></a>
+						</div>
+						<div class="thumb-img">
+							<a class="fancybox" href="images\sample-2.jpg" data-fancybox-group="gallery" title="Cras neque mi, semper leon"><img src="images\sample-2.jpg" alt="" class="img-responsive"></a>
+						</div>
+						<div class="thumb-img">
+							<a class="fancybox" href="images\sample-3.jpg" data-fancybox-group="gallery" title="Cras neque mi, semper leon"><img src="images\sample-3.jpg" alt="" class="img-responsive"></a>
 						</div>
 						<div class="thumb-img">
 							<a class="fancybox" href="images\sample-4.jpg" data-fancybox-group="gallery" title="Cras neque mi, semper leon"><img src="images\sample-4.jpg" alt="" class="img-responsive"></a>
-						</div>
-						<div class="thumb-img">
-							<a class="fancybox" href="images\sample-5.jpg" data-fancybox-group="gallery" title="Cras neque mi, semper leon"><img src="images\sample-5.jpg" alt="" class="img-responsive"></a>
-						</div>
-						<div class="thumb-img">
-							<a class="fancybox" href="images\sample-1.jpg" data-fancybox-group="gallery" title="Cras neque mi, semper leon"><img src="images\sample-1.jpg" alt="" class="img-responsive"></a>
 						</div>
 					</div>
 					<div class="col-md-6 det-desc">
 						<div class="productdata">
 							<div class="infospan">Item id<span><?php echo $getproduct['product_id']?></span></div>
-							<div class="infospan">Detail 2<span>H52</span></div>
 							<div class="infospan">Price<span><?php echo $getproduct['product_moneyunit'].$getproduct['product_price'] ?></span></div>
 							
 							<h4>Available Options</h4>
@@ -86,7 +85,7 @@ if ($count==0 || $getproduct['product_status'] == 0) {
 									<div class="clearfix"></div>
 									<div class="dash"></div>
 								</div> -->
-								<div class="form-group">
+								<div class="form-group"> 
 									<label for="qty" class="col-sm-2 control-label">Qty</label>
 									<div class="col-sm-4">
 										<select class="form-control" value="1" name="qty" id="qty">
@@ -112,9 +111,7 @@ if ($count==0 || $getproduct['product_status'] == 0) {
                                     if ($getproduct['product_stock'] > 0) { ?>
                                         <div class="sharing">
                                             <div class="share-bt">
-                                                <div class="addthis_toolbox addthis_default_style ">
-                                                    <a class="addthis_counter addthis_pill_style"></a>
-                                                </div>
+
                                                 <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4f0d0827271d1c3b"></script>
                                                 <div class="clearfix"></div>
                                             </div>
@@ -123,9 +120,7 @@ if ($count==0 || $getproduct['product_status'] == 0) {
                                 <?php } else { ?>
                                     <div class="sharingoutofstock">
                                             <div class="share-bt">
-                                                <div class="addthis_toolbox addthis_default_style ">
-                                                    <a class="addthis_counter addthis_pill_style"></a>
-                                                </div>
+
                                                 <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4f0d0827271d1c3b"></script>
                                                 <div class="clearfix"></div>
                                             </div>
@@ -143,7 +138,7 @@ if ($count==0 || $getproduct['product_status'] == 0) {
 					<ul id="myTab" class="nav nav-tabs shop-tab" >
 						<li class="active"><a href="#desc" data-toggle="tab">Items included</a></li>
 					</ul>
-					<div id="myTabContent" class="tab-content shop-tab-ct"  style="padding:0 0 10px 0; ">
+					<div id="myTabContent" class="tab-content shop-tab-ct desccontainer">
 
 						<div class="tab-pane fade active in" id="desc" style="margin:0 20px 0 20px;">
 							<div class="i_like_sucking_frytes_cock">
@@ -155,41 +150,38 @@ if ($count==0 || $getproduct['product_status'] == 0) {
 				</div>
 				
 				<div id="title-bg">
-					<div class="title">Related Product</div>
+					<div class="title">Similar Kits</div>
 				</div>
 				<div class="row prdct"><!--Products-->
-					<div class="col-md-4">
+
+
+				<?php 	
+
+				$category_id=$getproduct['product_category_id'];
+
+				$askproductbottom = $db->prepare("SELECT * FROM product where product_category_id=:category_id order by rand() limit 3");
+				$askproductbottom->execute(array(
+				'category_id' => $category_id
+				));
+
+				while ($productgetbottom=$askproductbottom->fetch(PDO::FETCH_ASSOC)) { ?>
+				
+				
+				<div class="col-md-4">
 						<div class="productwrap">
 							<div class="pr-img">
-								<div class="hot"></div>
-								<a href="product.htm"><img src="images\sample-4.jpg" alt="" class="img-responsive"></a>
-								<div class="pricetag on-sale"><div class="inner on-sale"><span class="onsale"><span class="oldprice">$314</span>$199</span></div></div>
+								<a href="product-<?=seo($productgetbottom["product_name"])."-".$productgetbottom['product_id']?>"><img src="images\sample-3.jpg" alt="" class="img-responsive"></a>
+								<div class="pricetag on-sale"><div class="inner on-sale"><span class="onsale"><span class="oldprice">$314</span><?php echo $productgetbottom['product_moneyunit'].$productgetbottom['product_price'];?></span></div></div>
 							</div>
-							<span class="smalltitle"><a href="product.htm">Lens</a></span>
-							<span class="smalldesc">Item no.: 1000</span>
+							<span class="smalltitle"><a href="product-<?=seo($productgetbottom["product_name"])?>"><?php echo $productgetbottom['product_name'];?></a></span>
+							<span class="smalldesc">Item no.: <?php echo $productgetbottom['product_id'];?></span> 
+							<br><br> <span class="smalldesc">CATEGORY: <?php echo $productgetbottom['product_category_id'];?></span>
 						</div>
 					</div>
-					<div class="col-md-4">
-						<div class="productwrap">
-						<div class="pr-img">
-							<div class="new"></div>
-							<a href="product.htm"><img src="images\sample-2.jpg" alt="" class="img-responsive"></a>
-							<div class="pricetag blue"><div class="inner">$199</div></div>
-						</div>
-							<span class="smalltitle"><a href="product.htm">Black Shoes</a></span>
-							<span class="smalldesc">Item no.: 1000</span>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="productwrap">
-						<div class="pr-img">
-							<a href="product.htm"><img src="images\sample-1.jpg" alt="" class="img-responsive"></a>
-							<div class="pricetag"><div class="inner">$199</div></div>
-						</div>
-							<span class="smalltitle"><a href="product.htm">Nikon Camera</a></span>
-							<span class="smalldesc">Item no.: 1000</span>
-						</div>
-					</div>
+
+					<?php } ?>
+
+
 				</div><!--Products-->
 				<div class="spacer"></div>
 			</div><!--Main content-->

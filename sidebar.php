@@ -20,8 +20,9 @@
 	</div>
 
 	<div class="ads">
-		<a href="product.htm"><img src="images/adshere.gif" class="img-responsive" alt=""></a>
+		<a href="index.php">
+			<img src="images/adshere.gif" class="img-responsive" alt="">
+		</a> 
 	</div>
-
 </div>
 <!--sidebar-->
