@@ -65,9 +65,10 @@ $askproduct-> execute();
                   <th style="text-align:center;">Name</th>                  
                   <th style="text-align:center;">Price</th>
                   <th style="text-align:center;">Stock</th>
-                  <th style="text-align:center;">status</th>  
-                  <th style="text-align:center;">edit</th>
-                  <th style="text-align:center;">delete</th>
+                  <th style="text-align:center; width: 100px;">Status</th>  
+                  <th style="text-align:center; width: 100px;">Featured</th>
+                  <th style="text-align:center; width: 100px;">Delete</th>
+                  <th style="text-align:center; width: 100px;">Edit</th>
                 
                 </tr>
               </thead>
@@ -86,14 +87,23 @@ $askproduct-> execute();
                     
                   <?php 
                   
-                  if ($productget['product_status']==1){ ?> <button class="btn btn-success" style="width:100%; height:100%;">active</button> <?php } 
-                  if ($productget['product_status']==0) { ?> <button class="btn btn-danger" style="width:100%; height:100%;">passive</button> <?php }
+                  if ($productget['product_status']==1) { ?> <button disabled class="btn btn-success" style="width:100%; height:100%;">active</button><?php } 
+                  if ($productget['product_status']==0) { ?> <button disabled class="btn btn-danger" style="width:100%; height:100%;">passive</button><?php }
                   
                   ?>
 
 
                   </td>
                   <!-- status button end -->
+
+                  <td>
+                  <?php 
+                  
+                  if ($productget['product_featured']==1) { ?>  <a href="../netting/process.php?featuredproduct=true&product_id=<?php echo $productget['product_id'] ?>"><button class="btn btn-success" style="width:100%; height:100%;">Featured!</button>   </a>  <?php } 
+                  if ($productget['product_featured']==0) { ?>  <a href="../netting/process.php?undofeaturedproduct=true&product_id=<?php echo $productget['product_id'] ?>"><button class="btn btn-danger" style="width:100%; height:100%;">Not featured</button></a>  <?php }
+                  
+                  ?>
+                  </td>
                   <td> <center> <a href="../netting/process.php?product_id=<?php echo $productget['product_id'] ?>&deleteproduct=true"><button style="width:100%; height:100%;" class="btn btn-danger">Delete</button></a></center></td>
                   <td> <center> <a href="product-edit.php?product_id=<?php echo $productget['product_id'] ?>"> <button style="width:100%; height:100%;" class="btn btn-primary ">Edit</button></a></center></td>
                 </tr>

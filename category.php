@@ -10,9 +10,10 @@ if (isset($_GET['sef'])) {
 
 	$category_id=$categoryget['category_id'];
 	
-	$askproduct = $db->prepare("SELECT * FROM product where product_category_id=:category_id order by product_id ASC");
+	$askproduct = $db->prepare("SELECT * FROM product where product_category_id=:category_id and product_status=:product_status order by product_id ASC");
 	$askproduct->execute(array(
-		'category_id' => $category_id
+		'category_id' => $category_id,
+		'product_status' => 1
 	));
 
 } else {

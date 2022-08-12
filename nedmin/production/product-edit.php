@@ -163,18 +163,24 @@ $productget = $askproduct->fetch(PDO::FETCH_ASSOC);
                 </div>
               </div>
 
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Product featured<span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <select name="product_featured" id="heard" class="form-control" required>
+                    <option value="0" <?php if ($productget['product_featured'] == 0) { echo 'selected=""'; }  ?>> Not Featured </option>
+                    <option value="1" <?php if ($productget['product_featured'] == 1) { echo 'selected=""'; }  ?>> Featured     </option>
+                  </select>
+                </div>
+              </div>
 
               <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Product status<span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <select name="product_status" id="heard" class="form-control" required>
-                    <option value="0" <?php if ($productget['product_status'] == 0) {
-                                        echo 'selected=""';
-                                      } ?>> Passive </option>
-                    <option value="1" <?php if ($productget['product_status'] == 1) {
-                                        echo 'selected=""';
-                                      }  ?>> Active </option>
+                    <option value="0" <?php if ($productget['product_status'] == 0) { echo 'selected=""'; }  ?>> Passive </option>
+                    <option value="1" <?php if ($productget['product_status'] == 1) { echo 'selected=""'; }  ?>> Active  </option>
                   </select>
                 </div>
               </div>

@@ -682,6 +682,28 @@ if ($_GET['deleteproduct'] == "true") {
     if ($control) header("Location: ../production/product.php?status=success");
     else header("Location: ../production/product.php?status=fail");
 }
+
+if ($_GET['featuredproduct'] == "true") {
+
+    $save=$db->prepare("UPDATE product SET product_featured=:product_featured WHERE product_id={$_GET['product_id']}");
+    $update = $save->execute(array('product_featured' => 0 ));
+
+    if ($update) header("Location: ../production/product.php?status=success");
+    else header("Location: ../production/product.php?status=fail");
+}
+
+
+if ($_GET['undofeaturedproduct'] == "true") {
+
+    $save=$db->prepare("UPDATE product SET product_featured=:product_featured WHERE product_id={$_GET['product_id']}");
+    $update = $save->execute(array('product_featured' => 1));
+
+    if ($update) header("Location: ../production/product.php?status=success");
+    else header("Location: ../production/product.php?status=fail");
+}
+
+
+
 if (isset($_POST['editproduct'])) { 
 
     $product_seourl = seo($_POST['product_name']);
@@ -689,7 +711,7 @@ if (isset($_POST['editproduct'])) {
 
 
 
-    $save=$db->prepare("UPDATE product SET 
+        $save=$db->prepare("UPDATE product SET 
         product_category_id=:product_category_id,
         product_name=:product_name,
         product_price=:product_price,
@@ -698,6 +720,7 @@ if (isset($_POST['editproduct'])) {
         product_keyword=:product_keyword,
         product_seourl=:product_seourl,
         product_stock=:product_stock,
+        product_featured=:product_featured,
         product_status=:product_status
         WHERE product_id=$product_id");
 
@@ -711,6 +734,7 @@ if (isset($_POST['editproduct'])) {
         'product_keyword'=>$_POST['product_keyword'],
         'product_seourl'=>$product_seourl,
         'product_stock'=>$_POST['product_stock'],
+        'product_featured'=>$_POST['product_featured'],
         'product_status'=>$_POST['product_status']
     ));
 

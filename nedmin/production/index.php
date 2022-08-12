@@ -33,7 +33,7 @@
                   </div>
                   <div class="x_content">
 
-                    <div style="background-image: url(https://c.tenor.com/yFexjS44cWEAAAAS/cat-cats.gif); height:750px; width:100%; background-size: 400px 200px;"></div> <!-- the cat gif -->
+                    <img src="https://i.imgur.com/AEe5cDs.jpeg" style="width: 1600px; height: 750px;">  <!-- cat gif -->
                     
                   </div>
                 </div>
