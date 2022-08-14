@@ -2182,3 +2182,21 @@ img{
 .img-responsive{
 	border-radius: 8px;
 }
+
+.chckoutscinfo{
+	margin: 0 0 0 7px;
+	font-size: small;
+}
+
+.chckoutscinfo p{
+	margin: 0 0 0 12px;
+	font-size: x-small;
+}
+
+.chckoutchb{
+	float: left;
+	margin: 0 0 0 28px;
+}
+
+
+

@@ -50,7 +50,7 @@ if (isset($_GET['sef'])) {
 						<div class="productwrap">
 							<div class="pr-img">
 								<a href="product-<?=seo($productget["product_name"])."-".$productget['product_id']?>"><img src="images\sample-3.jpg" alt="" class="img-responsive"></a>
-								<div class="pricetag on-sale"><div class="inner on-sale"><span class="onsale"><span class="oldprice">$314</span><?php echo $productget['product_moneyunit'].$productget['product_price'];?></span></div></div>
+								<div class="pricetag on-sale"><div class="inner on-sale"><span class="onsale"><!--<span class="oldprice">$314</span>--><?php echo $productget['product_moneyunit'].$productget['product_price'];?></span></div></div>
 							</div>
 							<span class="smalltitle"><a href="product-<?=seo($productget["product_name"])?>"><?php echo $productget['product_name'];?></a></span>
 							<span class="smalldesc">Item no.: <?php echo $productget['product_id'];?></span> 

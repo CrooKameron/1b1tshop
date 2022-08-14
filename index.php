@@ -6,14 +6,13 @@
 <?php include("slider.php") ?>
 
 		
-<?php include("featured.php") ?>
+<?php include("featured.php") ?>  <!-- featured products bar will not appear if you dont have 4 or more featured products -->
 	
 	
 	
 	<div class="container">
 		<div class="row">
 			<div class="col-md-9"><!--Main content-->
-				
 				
 				<div class="title-bg">
 					<div class="title">Single kits</div>

@@ -20,7 +20,7 @@
 	</div>
 
 	<div class="ads">
-		<a href="index.php">
+		<a href="https://www.ppf.one/simmbo">
 			<img src="images/adshere.gif" class="img-responsive" alt="">
 		</a> 
 	</div>

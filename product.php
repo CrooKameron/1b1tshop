@@ -171,7 +171,7 @@ if ($count==0 || $getproduct['product_status'] == 0) {
 						<div class="productwrap">
 							<div class="pr-img">
 								<a href="product-<?=seo($productgetbottom["product_name"])."-".$productgetbottom['product_id']?>"><img src="images\sample-3.jpg" alt="" class="img-responsive"></a>
-								<div class="pricetag on-sale"><div class="inner on-sale"><span class="onsale"><span class="oldprice">$314</span><?php echo $productgetbottom['product_moneyunit'].$productgetbottom['product_price'];?></span></div></div>
+								<div class="pricetag on-sale"><div class="inner on-sale"><span class="onsale"><!--<span class="oldprice">$314</span>--><?php echo $productgetbottom['product_moneyunit'].$productgetbottom['product_price'];?></span></div></div>
 							</div>
 							<span class="smalltitle"><a href="product-<?=seo($productgetbottom["product_name"])?>"><?php echo $productgetbottom['product_name'];?></a></span>
 							<span class="smalldesc">Item no.: <?php echo $productgetbottom['product_id'];?></span> 

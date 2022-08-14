@@ -102,12 +102,7 @@ $productget = $askproduct->fetch(PDO::FETCH_ASSOC);
                   <input value="<?php echo $productget['product_price'] ?>" type="text" id="first-name" class="form-control col-md-7 col-xs-12" name="product_price">
                 </div>
               </div>
-              <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Product money unit<span class="required">*</span></label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input value="<?php echo $productget['product_moneyunit'] ?>" type="text" id="first-name" class="form-control col-md-7 col-xs-12" name="product_moneyunit">
-                </div>
-              </div>
+             
 
 
 
