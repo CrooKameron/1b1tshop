@@ -1,4 +1,6 @@
-﻿<?php include 'header.php'; ?>
+﻿<?php include 'header.php'; 
+
+error_reporting(~E_NOTICE);?>
 
 <div class="container">
 	<div class="row">
@@ -34,7 +36,7 @@
 				<?php } elseif ($_GET['status'] == "passwordshorterthan6chars") { ?>
 
 					<div class="alert alert-danger">
-						<strong>Error!</strong> Password must be at least 6 characters.
+						<strong>Error!</strong> Password must be at least 7 characters.
 					</div>
 
 				<?php } elseif ($_GET['status'] == "mailalreadyinuse") { ?>
@@ -60,28 +62,16 @@
 
 				<div class="form-group">
 					<div class="col-sm-12">
-						<input type="text" class="form-control" required="" name="account_nickname" placeholder="Name & Surname or Nickname.">
-					</div>
-				</div>
-
-				<div class="form-group">
-					<div class="col-sm-12">
-						<input type="text" class="form-control" required="" name="account_ign" placeholder="Minecraft Nickname">
-					</div>
-				</div>
-
-				<div class="form-group">
-					<div class="col-sm-12">
-						<input type="email" class="form-control" required="" name="account_mail" placeholder="Mail adress.">
+						<input type="text" class="form-control" required="" name="account_mail" placeholder="Username.">
 					</div>
 				</div>
 
 				<div class="form-group dob">
 					<div class="col-sm-6">
-						<input type="password" class="form-control" name="account_password1" placeholder="Password">
+						<input type="password" class="form-control" name="account_password1" placeholder="Password.">
 					</div>
 					<div class="col-sm-6">
-						<input type="password" class="form-control" name="account_password2" placeholder="Confirm password">
+						<input type="password" class="form-control" name="account_password2" placeholder="Confirm password.">
 					</div>
 				</div>
 
@@ -91,7 +81,7 @@
 			</div>
 
 				</form>
-	<form action="nedmin/netting/process.php" method="POST" class="form-horizontal checkout" role="form">
+			<form action="nedmin/netting/process.php" method="POST" class="form-horizontal checkout" role="form">
 
 
 			<div class="col-md-6">

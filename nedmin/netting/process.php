@@ -1,4 +1,5 @@
 <?php
+error_reporting(~E_NOTICE);
 ob_start();
 session_start();
 include('connect.php');
@@ -31,7 +32,7 @@ if (isset($_POST['login'])) {
 }
 
 
-/*
+
 if (isset($_POST['registeraccount'])) {
     $account_nickname = htmlspecialchars($_POST['account_nickname']);
     $account_ign = htmlspecialchars($_POST['account_ign']);
@@ -58,8 +59,6 @@ if (isset($_POST['registeraccount'])) {
                 $account_status = 1;
 
                 $accountsave = $db->prepare("INSERT INTO account SET
-                    account_nickname=:account_nickname,
-                    account_ign=:account_ign,
                     account_mail=:account_mail,
                     account_password=:account_password,
                     account_authority=:account_authority,
@@ -67,8 +66,6 @@ if (isset($_POST['registeraccount'])) {
                 ");
 
                 $insert = $accountsave->execute(array(
-                    'account_nickname' => $account_nickname,
-                    'account_ign' => $account_ign,
                     'account_mail' => $account_mail,
                     'account_password' => $password,
                     'account_authority' => $account_authority,
@@ -84,14 +81,14 @@ if (isset($_POST['registeraccount'])) {
                 header("Location:../../register.php?status=mailalreadyinuse");
             }
         } else {
-            header("Location:../../register.php?status=passwordshorterthan6chars");
+            header("Location:../../register.php?status=passwordtooshort");
         }
     } else {
         header("Location:../../register.php?status=passwordsdoesntmatch");
     }
 }
 
-
+/*
 if (isset($_POST['updateaccountdetails1'])) {    
   
     echo ($_POST['accountid']);
@@ -111,29 +108,54 @@ if (isset($_POST['updateaccountdetails1'])) {
     if ($update) header('Location:../../index.php?status=update_success');
 
     else header('Location:../../account-details.php?status=unknownfail1');
-
-}
-
-if (isset($_POST['updateaccountdetails2'])) {                 
-    $md5password =  md5($_POST['account_password']);       
     
-    $accountsave = $db->prepare("UPDATE account SET
-    account_password=:account_password
-    where account_mail={$_SESSION['useraccountmail']}
-    ");
-
-    $update = $accountsave->execute(array(
-        'account_nickname' => $_POST['account_nickname'],
-        'account_ign' => $_POST['account_ign'],
-        'account_password' => $md5password
-    ));
-
-    if ($update) header('Location:../../index.php?status=update_success');
-
-    else header('Location:../../account-details.php?status=unknownfail');
-
 }
 */
+
+if (isset($_POST['updateaccountdetails2'])) {
+
+
+    $askaccount = $db->prepare("SELECT * FROM account where account_mail=:mail");
+    $askaccount->execute(array(
+        'mail' => $_SESSION['account_mail']
+    ));
+    $accountget = $askaccount->fetch(PDO::FETCH_ASSOC);
+
+
+
+    $md5oldpasswordinput =  md5($_POST['account_password']);
+    $md5newpasswordinput1 =  md5($_POST['account_password1']);
+    $md5newpasswordinput2 =  md5($_POST['account_password2']);
+
+    $oldpasswordinput =  $_POST['account_password'];
+    $newpasswordinput =  $_POST['account_password1'];
+
+    $md5oldpassword = $accountget['account_password'];
+
+    
+    
+    if ($md5oldpasswordinput != $md5oldpassword) header('Location:../../account-details.php?status=incorrectpassword');
+    else { if ($md5newpasswordinput1 != $md5newpasswordinput2) header('Location:../../account-details.php?status=passwordsdoesntmatch');
+        else { if (strlen($newpasswordinput) <= 6) header('Location:../../account-details.php?status=passwordtooshort');  
+            else { if ($md5newpasswordinput1 == $md5oldpassword) header('Location:../../account-details.php?status=passwordcantbesame');
+                else {
+                    $accountsave = $db->prepare("UPDATE account SET
+                    account_password=:account_password1
+                    where account_id = {$_POST['hiddeninput_account_id']}
+                    ");
+
+                    $update = $accountsave->execute(array(
+                        'account_password1' => md5($_POST['account_password1'])
+                    ));
+
+                    if ($update) header('Location:../../index.php?status=update_success');
+
+                    else header('Location:../../account-details.php?status=unknownfail');
+                }
+            }
+        }
+    }
+}
 
 if (isset($_POST['adminlogin'])) {
 
@@ -249,10 +271,10 @@ if (isset($_POST['uploadlogo'])) {
         $deleteimageunlink = $_POST['old_path'];
         unlink("../../$deleteimageunlink");
 
-        Header("Location:../production/generalsettings_form.php?status=update_success");
+        Header("Location:../production/generalsettings.php?status=update_success");
     } else {
 
-        Header("Location:../production/generalsettings_form.php?status=update_success");
+        Header("Location:../production/generalsettings.php?status=update_success");
     }
 }
 
@@ -410,6 +432,7 @@ if (isset($_POST['editmenuproperties'])) {
     menu_name=:menu_name,
     menu_detail=:menu_detail,
     menu_url=:menu_url,
+    menu_video=:menu_video,
     menu_order=:menu_order,
     menu_seourl=:menu_seourl,
     menu_status=:menu_status
@@ -420,6 +443,7 @@ if (isset($_POST['editmenuproperties'])) {
         'menu_name' => $_POST['menu_name'],
         'menu_detail' => $_POST['menu_detail'],
         'menu_url' => $_POST['menu_url'],
+        'menu_video' => $_POST['menu_video'],
         'menu_order' => $_POST['menu_order'],
         'menu_seourl' => $menu_seourl,
         'menu_status' => $_POST['menu_status']
@@ -616,20 +640,20 @@ if ($_GET['deleteslider'] == "true") {
 
 if (isset($_POST['addcategory'])) {
 
-    $category_seourl=seo($_POST['category_name']);
+    $category_seourl = seo($_POST['category_name']);
 
-    $save=$db->prepare("INSERT INTO category SET 
+    $save = $db->prepare("INSERT INTO category SET 
         category_name=:catname,
         category_seourl=:catseourl,
         category_order=:catorder,
         category_status=:category_status
     ");
 
-    $insert=$save->execute(array(
-        'catname'=>$_POST['category_name'],
-        'catseourl'=>$category_seourl,
-        'catorder'=>$_POST['category_order'],
-        'category_status'=>$_POST['category_status']
+    $insert = $save->execute(array(
+        'catname' => $_POST['category_name'],
+        'catseourl' => $category_seourl,
+        'catorder' => $_POST['category_order'],
+        'category_status' => $_POST['category_status']
     ));
 
     if ($insert) header("Location: ../production/category.php?status=successfullyadded");
@@ -639,21 +663,21 @@ if (isset($_POST['addcategory'])) {
 
 if (isset($_POST['editcategoryproperties'])) {
 
-    $category_id=$_POST['category_id'];
-    $category_seourl=seo($_POST['category_name']);
+    $category_id = $_POST['category_id'];
+    $category_seourl = seo($_POST['category_name']);
 
-    $save=$db->prepare("UPDATE category SET 
+    $save = $db->prepare("UPDATE category SET 
         category_name=:catname,
         category_seourl=:catseourl,
         category_order=:catorder,
         category_status=:category_status
         WHERE category_id=$category_id");
 
-    $update=$save->execute(array(
-        'catname'=>$_POST['category_name'],
-        'catseourl'=>$category_seourl,
-        'catorder'=>$_POST['category_order'],
-        'category_status'=>$_POST['category_status']
+    $update = $save->execute(array(
+        'catname' => $_POST['category_name'],
+        'catseourl' => $category_seourl,
+        'catorder' => $_POST['category_order'],
+        'category_status' => $_POST['category_status']
     ));
 
     if ($update) header("Location: ../production/category.php?status=success");
@@ -685,8 +709,8 @@ if ($_GET['deleteproduct'] == "true") {
 
 if ($_GET['featuredproduct'] == "true") {
 
-    $save=$db->prepare("UPDATE product SET product_featured=:product_featured WHERE product_id={$_GET['product_id']}");
-    $update = $save->execute(array('product_featured' => 0 ));
+    $save = $db->prepare("UPDATE product SET product_featured=:product_featured WHERE product_id={$_GET['product_id']}");
+    $update = $save->execute(array('product_featured' => 0));
 
     if ($update) header("Location: ../production/product.php?status=success");
     else header("Location: ../production/product.php?status=fail");
@@ -695,7 +719,7 @@ if ($_GET['featuredproduct'] == "true") {
 
 if ($_GET['undofeaturedproduct'] == "true") {
 
-    $save=$db->prepare("UPDATE product SET product_featured=:product_featured WHERE product_id={$_GET['product_id']}");
+    $save = $db->prepare("UPDATE product SET product_featured=:product_featured WHERE product_id={$_GET['product_id']}");
     $update = $save->execute(array('product_featured' => 1));
 
     if ($update) header("Location: ../production/product.php?status=success");
@@ -704,14 +728,14 @@ if ($_GET['undofeaturedproduct'] == "true") {
 
 
 
-if (isset($_POST['editproduct'])) { 
+if (isset($_POST['editproduct'])) {
 
     $product_seourl = seo($_POST['product_name']);
-    $product_id=$_POST['product_id'];
+    $product_id = $_POST['product_id'];
 
 
 
-        $save=$db->prepare("UPDATE product SET 
+    $save = $db->prepare("UPDATE product SET 
         product_category_id=:product_category_id,
         product_name=:product_name,
         product_price=:product_price,
@@ -724,16 +748,16 @@ if (isset($_POST['editproduct'])) {
         WHERE product_id=$product_id");
 
 
-    $insert=$save->execute(array(
-        'product_category_id'=>$_POST['product_category_id'],
-        'product_name'=>$_POST['product_name'],
-        'product_price'=>$_POST['product_price'],
-        'product_detail'=>$_POST['product_detail'],
-        'product_keyword'=>$_POST['product_keyword'],
-        'product_seourl'=>$product_seourl,
-        'product_stock'=>$_POST['product_stock'],
-        'product_featured'=>$_POST['product_featured'],
-        'product_status'=>$_POST['product_status']
+    $insert = $save->execute(array(
+        'product_category_id' => $_POST['product_category_id'],
+        'product_name' => $_POST['product_name'],
+        'product_price' => $_POST['product_price'],
+        'product_detail' => $_POST['product_detail'],
+        'product_keyword' => $_POST['product_keyword'],
+        'product_seourl' => $product_seourl,
+        'product_stock' => $_POST['product_stock'],
+        'product_featured' => $_POST['product_featured'],
+        'product_status' => $_POST['product_status']
     ));
 
     if ($insert) header("Location: ../production/product.php?status=success");
@@ -742,14 +766,14 @@ if (isset($_POST['editproduct'])) {
 }
 
 
-if (isset($_POST['addproduct'])) { 
+if (isset($_POST['addproduct'])) {
 
     $product_seourl = seo($_POST['product_name']);
-    $product_id=$_POST['product_id'];
+    $product_id = $_POST['product_id'];
 
 
 
-    $save=$db->prepare("INSERT INTO product SET 
+    $save = $db->prepare("INSERT INTO product SET 
         product_category_id=:product_category_id,
         product_name=:product_name,
         product_price=:product_price,
@@ -762,19 +786,39 @@ if (isset($_POST['addproduct'])) {
     ");
 
 
-    $insert=$save->execute(array(
-        'product_category_id'=>$_POST['product_category_id'],
-        'product_name'=>$_POST['product_name'],
-        'product_price'=>$_POST['product_price'],
-        'product_moneyunit'=>"$",
-        'product_detail'=>$_POST['product_detail'],
-        'product_keyword'=>$_POST['product_keyword'],
-        'product_seourl'=>$product_seourl,
-        'product_stock'=>$_POST['product_stock'],
-        'product_status'=>$_POST['product_status']
+    $insert = $save->execute(array(
+        'product_category_id' => $_POST['product_category_id'],
+        'product_name' => $_POST['product_name'],
+        'product_price' => $_POST['product_price'],
+        'product_moneyunit' => "$",
+        'product_detail' => $_POST['product_detail'],
+        'product_keyword' => $_POST['product_keyword'],
+        'product_seourl' => $product_seourl,
+        'product_stock' => $_POST['product_stock'],
+        'product_status' => $_POST['product_status']
     ));
 
     if ($insert) header("Location: ../production/product.php?status=sucsess");
 
     else header("Location: ../production/product.php?status=fail");
+}
+
+if (isset($_POST['addtocart'])) {
+    
+    $save = $db->prepare("INSERT INTO cart SET 
+    cart_product_qty=:cart_product_qty,
+    cart_account_id=:cart_account_id,
+    cart_product_id=:cart_product_id
+");
+
+
+$insert = $save->execute(array(
+    'cart_product_qty' => $_POST['cart_product_qty'],
+    'cart_account_id' => $_POST['account_id'],
+    'cart_product_id' => $_POST['product_id']
+));
+
+if ($insert) header("Location: ../../cart.php?status=sucsess");
+
+else header("Location: ../../index.php?status=fail");
 }

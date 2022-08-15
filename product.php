@@ -56,7 +56,7 @@ if ($count==0 || $getproduct['product_status'] == 0) {
 							
 							<h4>Available Options</h4>
 							
-							<form class="form-horizontal ava" role="form">
+							<form class="form-horizontal ava" role="form" action="nedmin/netting/process.php" method="POST">
 								<!-- <div class="form-group">
 									<label for="mem" class="col-sm-2 control-label">Option</label>
 									<div class="col-sm-10">
@@ -88,21 +88,23 @@ if ($count==0 || $getproduct['product_status'] == 0) {
 								<div class="form-group"> 
 									<label for="qty" class="col-sm-2 control-label">Qty</label>
 									<div class="col-sm-4">
-										<select class="form-control" value="1" name="qty" id="qty">
-											<option name="opt1">1</option>
-											<option name="opt2">2</option>
-											<option name="opt3">3</option>
-											<option name="opt4">4</option>
-											<option name="opt5">5</option>
-											<option name="opt6">10</option>
-											<option name="opt7">15</option>
+										<select class="form-control" value="1" name="cart_product_qty" id="cart_product_qty">
+											<option name="opt1" value="1">1</option>
+											<option name="opt2" value="2">2</option>
+											<option name="opt3" value="3">3</option>
+											<option name="opt4" value="4">4</option>
+											<option name="opt5" value="5">5</option>
+											<option name="opt6" value="10">10</option>
+											<option name="opt7" value="15">15</option>
 										</select>
 									</div>
 									<div class="col-sm-4">
-										<button class="btn btn-default btn-red btn-sm"><span class="addchart">Add To Chart</span></button>
+										<button type="submit" name="addtocart" class="btn btn-default btn-red btn-sm"><span class="addcart">Add To cart</span></button>
 									</div>
 									<div class="clearfix"></div>
 								</div>
+								<input type="hidden" name="account_id" value="<?php echo $accountget['account_id'] ?>">
+								<input type="hidden" name="product_id" value="<?php echo $getproduct['product_id'] ?>">
 							</form>
 							
 

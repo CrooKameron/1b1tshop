@@ -1,12 +1,19 @@
 <?php
 include('nedmin/netting/connect.php');
 include('nedmin/production/function.php');
-//belirli bir veriyi seçme işlemi
+error_reporting(~E_NOTICE);
 $asksetting = $db->prepare("SELECT * FROM settings where settings_id=:id");
 $asksetting->execute(array(
 	'id' => 0
 ));
 $settingget = $asksetting->fetch(PDO::FETCH_ASSOC);
+
+$askaccount = $db->prepare("SELECT * FROM account where account_mail=:id");
+$askaccount->execute(array(
+	'id' => $_SESSION['useraccountmail']
+));
+$accountget = $askaccount->fetch(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +22,7 @@ $settingget = $asksetting->fetch(PDO::FETCH_ASSOC);
 <head>
 	<meta charset="UTF-8">
 	<meta name="description" content="<?php echo $settingget['setting_description']; ?>">
-	<meta name="keywords" c	ontent="<?php echo $settingget['setting_keywords']; ?>">
+	<meta name="keywords" c ontent="<?php echo $settingget['setting_keywords']; ?>">
 	<meta name="author" content="<?php echo $settingget['setting_author']; ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -56,17 +63,17 @@ $settingget = $asksetting->fetch(PDO::FETCH_ASSOC);
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-6 col-md-4 main-logo">
-						<a href="index.php"><img src="<?php echo $settingget['settings_logo']; ?>" class="no-select" alt="logo" class="logo img-responsive"></a>
+						<a href="index.php"><img src="<?php echo $settingget['settings_logo']; ?>" alt="logo" class="no-select logo img-responsive"></a>
 					</div>
 
 
 					<div class="col-md-8">
 						<div class="pushright">
 							<div class="top">
-							<!--
+
 								<?php
 								if (!isset($_SESSION['useraccountmail'])) { ?>
-									
+
 									<a href="#" id="reg" class="btn btn-default btn-dark">Login<span>-- Or --</span>Register</a>
 									<div class="regwrap">
 										<div class="row">
@@ -97,21 +104,19 @@ $settingget = $asksetting->fetch(PDO::FETCH_ASSOC);
 											</div>
 										</div>
 									</div>
-									
+
 								<?php
-								
+
 								} else if (isset($_SESSION['useraccountmail'])) { ?>
-									
-									<ul class="small-menu" style="margin: 6px 36px 0 0;">
-										<li><a href="account-details.php" style="color: white;" class="myacc">My Account</a></li>
+
+									<ul class="small-menu" style="margin: 6px 32px 0 0;">
+										<li><a href="account-details.php" style="float: left; color:white;">My Account</a><a style="float: right; color: white;" href="account-details.php" class="myacc">&nbsp;</a></li>
 									</ul>
-									
+
 								<?php
 								}
 								?>
 
-
-							-->
 
 								<!-- start search -->
 
@@ -140,7 +145,7 @@ $settingget = $asksetting->fetch(PDO::FETCH_ASSOC);
 					</div>
 				</div>
 			</div>
-			<div class="dashed"></div>
+			<div class="dashed" style="margin:5px 0 0 0; position: absolute;"></div>
 		</div>
 		<!--Header -->
 		<div class="main-nav">
@@ -170,21 +175,28 @@ $settingget = $asksetting->fetch(PDO::FETCH_ASSOC);
 									while ($menuget = $askmenu->fetch(PDO::FETCH_ASSOC)) {
 
 									?><li><a class="no-select" href="<?php
-													if (!empty($menuget['menu_url'])) {
-														echo $menuget['menu_url'];
-													} else {
-														echo "page-" . seo($menuget['menu_name']);
-													}
-													?>"><?php echo $menuget['menu_name'] ?></a></li>
+																		if (!empty($menuget['menu_url'])) {
+																			echo $menuget['menu_url'];
+																		} else {
+																			echo "page-" . seo($menuget['menu_name']);
+																		}
+																		?>"><?php echo $menuget['menu_name'] ?></a></li>
 									<?php } ?>
 								</ul>
 							</div>
+
 						</div>
+
+
+
+
+						<!-- cart -->
 						<div class="col-md-2 machart">
 							<button id="popcart" class="btn btn-default btn-chart btn-sm "><span class="mychart">Cart</span>|<span class="allprice">$0.00</span></button>
 							<div class="popcart">
 								<table class="table table-condensed popcart-inner">
 									<tbody>
+										
 										<tr>
 											<td>
 												<a class="no-select" href="product.htm"><img src="images\dummy-1.png" alt="" class="img-responsive"></a>
@@ -199,7 +211,7 @@ $settingget = $asksetting->fetch(PDO::FETCH_ASSOC);
 								<span class="sub-tot">Sub-Total : <span>$277.60</span> | <span>Vat (17.5%)</span> : $36.00 </span>
 								<br>
 								<div class="btn-popcart">
-									<a href="checkout.htm" class="btn btn-default btn-red btn-sm">Go to Cart</a>
+									<a href="cart.php" class="btn btn-default btn-red btn-sm">Go to Cart</a>
 								</div>
 								<div class="popcart-tot">
 									<p>
@@ -208,17 +220,13 @@ $settingget = $asksetting->fetch(PDO::FETCH_ASSOC);
 									</p>
 								</div>
 								<div class="clearfix"></div>
-
 							</div>
-
 						</div>
+						<!-- cart -->
+
+
 
 					</div>
-
-
-
-
-
 				</div>
 			</div>
 		</div>

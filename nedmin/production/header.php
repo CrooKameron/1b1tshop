@@ -23,12 +23,13 @@ $askaccount=$db->prepare("SELECT * FROM account where account_mail=:mail");
 $askaccount-> execute(array(
   'mail' => $_SESSION['account_mail']
 ));
+$accountget=$askaccount->fetch(PDO::FETCH_ASSOC);
+
 $asksetting=$db->prepare("SELECT * FROM slider where about_id=:id");
 $asksetting-> execute(array(
   'id' => 0
 ));
 $count=$askaccount->rowCount();
-$accountget=$askaccount->fetch(PDO::FETCH_ASSOC);
 
 if ($count==0) {
   header("Location:login.php?durum=unauthorized");

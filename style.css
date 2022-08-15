@@ -31,9 +31,10 @@ html,body {
 .header {
 	background:url(images/header-bg.png);
 	width:100%;
+	height: 60px;
 }
 .logo{
-	padding:2px 0 0 0;
+	padding:5px 0 0 0;
 }
 .dashed{
 	height:1px;
@@ -2198,5 +2199,12 @@ img{
 	margin: 0 0 0 28px;
 }
 
+.crtrmvitm{
+	margin: 13px auto 0 auto;
+	text-align: center;
+}
 
-
+.crtrmvitmtext{
+	margin: 17px auto 0 auto;
+	text-align: center;
+}

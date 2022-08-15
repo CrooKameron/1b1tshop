@@ -18,7 +18,7 @@ $aboutget=$asksetting->fetch(PDO::FETCH_ASSOC)
 					<div class="page-title-inner">
 					<div class="row">
 						<!-- <div class="col-md-4"> -->
-							<div class="bigtitle">About us</div>
+							<div class="bigtitle">About this website</div>
 						<!-- </div>  -->
 					</div>
 					</div>

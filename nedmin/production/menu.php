@@ -19,12 +19,12 @@ $askmenu-> execute();
             <h2>Menu settings</h2>
             <div style="margin:4px 0 0 120px; length:200px; position:absolute;"> 
             <?php 
-                      if ($_GET['status'] == "success") {
+                      if ($_GET['status'] == "update_success") {
                         ?> <small style="color:green;"> preferences saved! </small>  <?php
                       }
                     ?> 
                     <?php 
-                    if ($_GET['status'] == "fail") {
+                    if ($_GET['status'] == "update_fail") {
                       ?> <small style="color:red;"> something vent wrong! </small>  <?php
                     }
             ?>
@@ -32,7 +32,7 @@ $askmenu-> execute();
             <ul class="nav navbar-right panel_toolbox">
                 <li>
                     <div style="margin:4px 5px 0 0;">
-                      <a href="menu-add.php"> <button class="btn btn-success btn-xs" name="addmenu">Add Menu</button>        </a>                                                        
+                      <a href="menu-add.php"> <button class="btn btn-success btn-xs" name="addmenu">Add Menu</button></a>                                                        
                     </div>
             </li>
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -83,8 +83,8 @@ $askmenu-> execute();
                     
                   <?php 
                   
-                  if ($menuget['menu_status']==1){ ?> <button class="btn btn-success" style="width:100%; height:100%;">active</button> <?php } 
-                  if ($menuget['menu_status']==0) { ?> <button class="btn btn-danger" style="width:100%; height:100%;">passive</button> <?php }
+                  if ($menuget['menu_status']==1) { ?> <button disabled class="btn btn-success" style="width:100%; height:100%;">active</button> <?php } 
+                  if ($menuget['menu_status']==0) { ?> <button disabled class="btn btn-danger" style="width:100%; height:100%;">passive</button> <?php }
                   
                   ?>
 
