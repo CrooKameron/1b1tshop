@@ -15,69 +15,41 @@
 			<div class="col-md-9"><!--Main content-->
 				
 				<div class="title-bg">
-					<div class="title">Single kits</div>
+					<div class="title">All kits</div>
 				</div>
 				<div class="row prdct"><!--Products-->
-					<div class="col-md-4">
-						<div class="productwrap">
-							<div class="pr-img">
-								<a href="product.htm"><img src="images\sample-2.jpg" alt="" class="img-responsive"></a>
-								<div class="pricetag on-sale"><div class="inner on-sale"><span class="onsale"><span class="oldprice">$314</span>$199</span></div></div>
-							</div>
-							<span class="smalltitle"><a href="product.htm">item-1</a></span>
-							<span class="smalldesc">Item no.: 1000</span>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="productwrap">
-						<div class="pr-img">
-							<a href="product.htm"><img src="images\sample-1.jpg" alt="" class="img-responsive"></a>
-							<div class="pricetag"><div class="inner">$199</div></div>
-						</div>
-							<span class="smalltitle"><a href="product.htm">item-2</a></span>
-							<span class="smalldesc">Item no.: 1000</span>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="productwrap">
-						<div class="pr-img">
-							<a href="product.htm"><img src="images\sample-3.jpg" alt="" class="img-responsive"></a>
-							<div class="pricetag"><div class="inner">$199</div></div>
-						</div>
-							<span class="smalltitle"><a href="product.htm">item-3</a></span>
-							<span class="smalldesc">Item no.: 1000</span>
-						</div>
-					</div>
+  
+				<?php
+				$askproduct = $db->prepare("SELECT * FROM product where product_status=:product_status");
+				$askproduct->execute(array(
+					'product_status' => 1
+				));
+				while ($productget = $askproduct->fetch(PDO::FETCH_ASSOC)) {
+
+
+					$product_id = $productget['product_id'];
+
+
+					$askproductphoto = $db->prepare("SELECT * FROM productphoto where productphoto_product_id=:productphoto_product_id order by productphoto_id ASC limit 1 ");
+					$askproductphoto->execute(array(
+						'productphoto_product_id' => $product_id
+					));
+					$productimageget = $askproductphoto->fetch(PDO::FETCH_ASSOC);
+
+				?>
+
 					<div class="col-md-4">
 						<div class="productwrap">
 						<div class="pr-img">
-							<a href="product.htm"><img src="images\sample-4.jpg" alt="" class="img-responsive"></a>
-							<div class="pricetag"><div class="inner">$199</div></div>
+							<a href="product-<?= seo($productget["product_name"]) . "-" . $productget['product_id'] ?>"><img src="<?php echo $productimageget['productphoto_imagepath'] ?>" alt="" class="img-responsive"></a>
+							<div class="pricetag"><div class="inner">$<?php echo $productget['product_price']?></div></div>
 						</div>
-							<span class="smalltitle"><a href="product.htm">item-4</a></span>
-							<span class="smalldesc">Item no.: 1000</span>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="productwrap">
-						<div class="pr-img">
-							<a href="product.htm"><img src="images\sample-5.jpg" alt="" class="img-responsive"></a>
-							<div class="pricetag"><div class="inner">$199</div></div>
-						</div>
-							<span class="smalltitle"><a href="product.htm">item-5</a></span>
-							<span class="smalldesc">Item no.: 1000</span>
+							<span class="smalltitle"><a href="product-<?= seo($productget["product_name"]) . "-" . $productget['product_id'] ?>"><?php echo $productget['product_name'] ?></a></span>
 						</div>
 					</div>
-					<div class="col-md-4">
-						<div class="productwrap">
-						<div class="pr-img">
-							<a href="product.htm"><img src="images\sample-6.jpg" alt="" class="img-responsive"></a>
-							<div class="pricetag"><div class="inner">$199</div></div>
-						</div>
-							<span class="smalltitle"><a href="product.htm">item-6</a></span>
-							<span class="smalldesc">Item no.: 1000</span>
-						</div>
-					</div>
+				
+
+				<?php } ?>
 				</div><!--Products-->
 				<div class="spacer"></div>
 				

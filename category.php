@@ -2,20 +2,19 @@
 
 if (isset($_GET['sef'])) {
 
-	$askcategory=$db->prepare("SELECT * FROM category where category_seourl=:seourl");
-	$askcategory-> execute(array(	
-	'seourl' => $_GET['sef']
+	$askcategory = $db->prepare("SELECT * FROM category where category_seourl=:seourl");
+	$askcategory->execute(array(
+		'seourl' => $_GET['sef']
 	));
-	$categoryget=$askcategory->fetch(PDO::FETCH_ASSOC);
+	$categoryget = $askcategory->fetch(PDO::FETCH_ASSOC);
 
-	$category_id=$categoryget['category_id'];
-	
+	$category_id = $categoryget['category_id'];
+
 	$askproduct = $db->prepare("SELECT * FROM product where product_category_id=:category_id and product_status=:product_status order by product_id ASC");
 	$askproduct->execute(array(
 		'category_id' => $category_id,
 		'product_status' => 1
 	));
-
 } else {
 	$askproduct = $db->prepare("SELECT * FROM product order by product_id ASC");
 	$askproduct->execute();
@@ -39,22 +38,39 @@ if (isset($_GET['sef'])) {
 
 
 				<?php
-				if(!$askproduct->rowCount()){
-					?>
+				if (!$askproduct->rowCount()) {
+				?>
 					<p style="margin:0 0 0 20px;">no product found in this category :(</p>
-					<?php
+				<?php
 				}
-				while ($productget=$askproduct->fetch(PDO::FETCH_ASSOC)) { ?>
+				while ($productget = $askproduct->fetch(PDO::FETCH_ASSOC)) { 
+
+
+					$product_id = $productget['product_id'];
+
+
+					$askproductphoto = $db->prepare("SELECT * FROM productphoto where productphoto_product_id=:productphoto_product_id order by productphoto_id ASC limit 1 ");
+					$askproductphoto->execute(array(
+					'productphoto_product_id' => $product_id
+					));
+					$productimageget = $askproductphoto->fetch(PDO::FETCH_ASSOC);
+
+				?>
+
+
 
 					<div class="col-md-4">
 						<div class="productwrap">
 							<div class="pr-img">
-								<a href="product-<?=seo($productget["product_name"])."-".$productget['product_id']?>"><img src="images\sample-3.jpg" alt="" class="img-responsive"></a>
-								<div class="pricetag on-sale"><div class="inner on-sale"><span class="onsale"><!--<span class="oldprice">$314</span>--><?php echo $productget['product_moneyunit'].$productget['product_price'];?></span></div></div>
+								<a href="product-<?= seo($productget["product_name"]) . "-" . $productget['product_id'] ?>"><img src="<?php echo $productimageget['productphoto_imagepath'] ?>" alt="" class="img-responsive"></a>
+								<div class="pricetag on-sale">
+									<div class="inner on-sale"><span class="onsale">
+											<!--<span class="oldprice">$314</span>--><?php echo $productget['product_moneyunit'] . $productget['product_price']; ?>
+										</span></div>
+								</div>
 							</div>
-							<span class="smalltitle"><a href="product-<?=seo($productget["product_name"])?>"><?php echo $productget['product_name'];?></a></span>
-							<span class="smalldesc">Item no.: <?php echo $productget['product_id'];?></span> 
-							<br><br> <span class="smalldesc">CATEGORY: <?php echo $productget['product_category_id'];?></span>
+							<span class="smalltitle"><a href="product-<?= seo($productget["product_name"]) ?>"><?php echo $productget['product_name']; ?></a></span>
+							<span class="smalldesc">Item no.: <?php echo $productget['product_id']; ?></span>
 						</div>
 					</div>
 
@@ -89,22 +105,11 @@ if (isset($_GET['sef'])) {
 				 -->
 
 
-			
-				</div>
-			<!--Products-->
-			<ul class="pagination shop-pag">
-				<!--pagination-->
-				<li><a href="#"><i class="fa fa-caret-left"></i></a></li>
-				<li><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li><a href="#">4</a></li>
-				<li><a href="#">5</a></li>
-				<li><a href="#"><i class="fa fa-caret-right"></i></a></li>
-			</ul>
-			<!--pagination-->
+
+			</div>
+
 		</div>
-		
+
 		<?php include "sidebar.php" ?>
 	</div>
 	<div class="spacer"></div>

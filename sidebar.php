@@ -19,10 +19,8 @@
 		</ul>
 	</div>
 
-	<div class="ads">
-		<a href="https://www.ppf.one/simmbo">
-			<img src="images/adshere.gif" class="img-responsive" alt="">
-		</a> 
-	</div>
+				<div class="ads">
+					<a href="https://www.ppf.one/simmbo"><img width="252" height="173" src="images\adshere.gif" class="img-responsive" alt=""></a>
+				</div>
 </div>
 <!--sidebar-->

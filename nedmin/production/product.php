@@ -65,6 +65,7 @@ $askproduct-> execute();
                   <th style="text-align:center;">Name</th>                  
                   <th style="text-align:center;">Price</th>
                   <th style="text-align:center;">Stock</th>
+                  <th style="text-align:center; width: 100px;">Image</th>
                   <th style="text-align:center; width: 100px;">Status</th>  
                   <th style="text-align:center; width: 100px;">Featured</th>
                   <th style="text-align:center; width: 100px;">Delete</th>
@@ -82,6 +83,7 @@ $askproduct-> execute();
                   <td><?php echo $productget['product_name']?></td>
                   <td><?php echo ($productget['product_price']).($productget['product_moneyunit']) ?></td>
                   <td><?php echo $productget['product_stock']?></td>
+                  <td><a href="product-gallery.php?product_id=<?php echo $productget['product_id'] ?>"><button class="btn btn-success" style="width:100%; height:100%;">Edit Image</button></a></td>
                   <!-- status button start -->
                   <td align="center">
                     

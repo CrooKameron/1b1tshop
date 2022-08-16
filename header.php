@@ -126,7 +126,7 @@ $accountget = $askaccount->fetch(PDO::FETCH_ASSOC);
 								<div class="srchwrap">
 									<div class="row">
 										<div class="col-md-12">
-											<form class="form-horizontal" role="form">
+											<form class="form-horizontal" role="form" method="POST" >
 												<div class="form-group">
 													<label for="search" class="col-sm-2 control-label">Search</label>
 													<div class="col-sm-10">
@@ -196,27 +196,66 @@ $accountget = $askaccount->fetch(PDO::FETCH_ASSOC);
 							<div class="popcart">
 								<table class="table table-condensed popcart-inner">
 									<tbody>
-										
-										<tr>
-											<td>
-												<a class="no-select" href="product.htm"><img src="images\dummy-1.png" alt="" class="img-responsive"></a>
-											</td>
-											<td><a class="no-select" href="product.htm">Casio Exilim Zoom</a><br class="no-select"><span class="no-select">Color: green</span></td>
-											<td>1X</td>
-											<td>$138.80</td>
-											<td><a class="no-select" href=""><i class="fa fa-times-circle fa-2x"></i></a></td>
-										</tr>
+										<?php
+										$userid = $accountget['account_id'];
+										$askcart = $db->prepare("SELECT * FROM cart where cart_account_id=:id");
+										$askcart->execute(array(
+											'id' => $userid
+										)); 
+										$totalprice=0;
+
+
+
+										while ($cartget = $askcart->fetch(PDO::FETCH_ASSOC)) {
+
+											$product_id = $cartget['cart_product_id'];
+											$askproduct = $db->prepare("SELECT * FROM product where product_id=:product_id");
+											$askproduct->execute(array(
+												'product_id' => $product_id
+											));
+											$getproduct = $askproduct->fetch(PDO::FETCH_ASSOC);
+											
+											
+											$totalpriceofproduct = $getproduct['product_price'] * $cartget['cart_product_qty'];
+
+
+											$askcategory=$db->prepare("SELECT * FROM category where category_id=:category_id");
+											$askcategory-> execute(array(	
+											'category_id' => $getproduct['product_category_id']
+											));
+											$categoryget=$askcategory->fetch(PDO::FETCH_ASSOC);
+
+
+
+											$product_id = $getproduct['product_id'];
+
+											$askproductphoto = $db->prepare("SELECT * FROM productphoto where productphoto_product_id=:productphoto_product_id order by productphoto_id ASC limit 1 ");
+											$askproductphoto->execute(array(
+												'productphoto_product_id' => $product_id
+											));
+											$productimageget = $askproductphoto->fetch(PDO::FETCH_ASSOC);
+
+										?>
+											<tr>
+												<td>
+													<a class="no-select" href="<?php echo $productimageget['productphoto_imagepath']?>"><img src="<?php echo $productimageget['productphoto_imagepath']?>" alt="" class="img-responsive"></a>
+												</td>
+												<td><a class="no-select" href="product.htm"><?php echo $getproduct['product_name']?></a><br class="no-select"><span class="no-select">Category: <?php echo $categoryget['category_name'] ?></span></td>
+												<td><?php echo $cartget['cart_product_qty'] ?>x</td>
+												<td>$<?php echo $totalpriceofproduct ?></td>
+												<td><a class="no-select" href="nedmin/netting/process.php?cart_id=<?php echo $cartget['cart_id']?>&deletecartheader=true"><i class="fa fa-times-circle fa-2x"></i></a></td>
+											</tr>
+										<?php $totalprice+=$totalpriceofproduct; } ?>
 									</tbody>
 								</table>
-								<span class="sub-tot">Sub-Total : <span>$277.60</span> | <span>Vat (17.5%)</span> : $36.00 </span>
 								<br>
 								<div class="btn-popcart">
-									<a href="cart.php" class="btn btn-default btn-red btn-sm">Go to Cart</a>
+									<a href="cart.php" class="btn btn-default btn-red btn-sm gotocartbtn">Go to Cart</a>
 								</div>
 								<div class="popcart-tot">
 									<p>
 										Total<br>
-										<span>$313.60</span>
+										<span>$<?php echo $totalprice ?></span>
 									</p>
 								</div>
 								<div class="clearfix"></div>

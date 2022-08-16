@@ -28,6 +28,7 @@
 				$askcart->execute(array(
 					'id' => $userid
 				));
+				$totalprice=0;
 				while ($cartget = $askcart->fetch(PDO::FETCH_ASSOC)) {
 					
 					$product_id=$cartget['cart_product_id'];
@@ -39,11 +40,19 @@
 					$totalpriceofproduct = $getproduct['product_price'] * $cartget['cart_product_qty'];
 
 
+					$product_id = $getproduct['product_id'];
+
+					$askproductphoto = $db->prepare("SELECT * FROM productphoto where productphoto_product_id=:productphoto_product_id order by productphoto_id ASC limit 1 ");
+					$askproductphoto->execute(array(
+						'productphoto_product_id' => $product_id
+					));
+					$productimageget = $askproductphoto->fetch(PDO::FETCH_ASSOC);
+
 
 				?>
 					<tr>
-						<td style="align-items: center;"><button class="btn btn-danger crtrmvitm">&nbsp;<i class="fa fa-trash-o"></i></button></td>
-						<td><img src="images\demo-img.jpg" width="100" alt=""></td>
+						<td style="align-items: center;"><a href="nedmin/netting/process.php?cart_id=<?php echo $cartget['cart_id']?>&deletecart=true"><button class="btn btn-danger crtrmvitm">&nbsp;<i class="fa fa-trash-o"></i></button></a></td>
+						<td><img src="<?php echo $productimageget['productphoto_imagepath'] ?>" width="100" alt=""></td>
 						<td><p class="crtrmvitmtext"><?php echo $getproduct['product_name']?></p></td>
 						<td><p class="crtrmvitmtext"><?php echo $getproduct['product_id']?></p></td>
 						<td><form><input type="text" class="form-control quantity crtrmvitm" value="<?php echo $cartget['cart_product_qty']?>"></form></td>
@@ -82,7 +91,6 @@
 				</div> -->
 				<div class="total">Total : $<span class="bigprice"><?php echo $totalprice ?></span></div>
 				<a href="checkout.php" class="btn btn-default btn-red btn-sm">Checkout</a>
-				<a href="" class="btn btn-default btn-red btn-sm">Update</a>
 				<div class="clearfix"></div>
 				<a href="index.php" class="btn btn-default btn-yellow">Continue Shopping</a>
 			</div>

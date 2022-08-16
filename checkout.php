@@ -5,7 +5,7 @@
 
 	</div>
 
-	<form class="form-horizontal checkout" role="form">
+	<form class="form-horizontal checkout" role="form" action="about.php">
 		<div class="row">
 			<div class="col-md-6 bill">
 				<div class="title-bg">
@@ -21,7 +21,7 @@
 				</div>
 				<div class="form-group">
 					<div class="col-sm-6">
-						<input type="tel" pattern="-[0-9]{3}-[0-9]{3}-[0-9]{4}" class="form-control" id="phone" placeholder="phone number: 123-123-1234" name="phone">
+						<input type="text" class="form-control" id="phone" placeholder="phone number: 123-123-1234" name="phone">
 					</div>
 					<div class="col-sm-6">
 						<input type="text" class="form-control" id="ign" placeholder="ign - (in game name)" name="ign">
@@ -95,46 +95,49 @@
 				<thead>
 					<tr>
 						<th>Name</th>
-						<th>Model</th>
-						<th>Item No.</th>
+						<th>Item Id.</th>
 						<th>Quantity</th>
 						<th>Unit Price</th>
 						<th>Total</th>
 					</tr>
 				</thead>
 				<tbody>
+				<?php
+				$userid = $accountget['account_id'];
+				$askcart = $db->prepare("SELECT * FROM cart where cart_account_id=:id");
+				$askcart->execute(array(
+					'id' => $userid
+				));
+				$totalprice=0;
+				while ($cartget = $askcart->fetch(PDO::FETCH_ASSOC)) {
+					
+					$product_id=$cartget['cart_product_id'];
+					$askproduct = $db->prepare("SELECT * FROM product where product_id=:product_id");
+					$askproduct->execute(array(
+						'product_id' => $product_id
+					));
+					$getproduct = $askproduct->fetch(PDO::FETCH_ASSOC);
+					$totalpriceofproduct = $getproduct['product_price'] * $cartget['cart_product_qty'];
+
+
+					$product_id = $getproduct['product_id'];
+
+					$askproductphoto = $db->prepare("SELECT * FROM productphoto where productphoto_product_id=:productphoto_product_id order by productphoto_id ASC limit 1 ");
+					$askproductphoto->execute(array(
+						'productphoto_product_id' => $product_id
+					));
+					$productimageget = $askproductphoto->fetch(PDO::FETCH_ASSOC);
+
+
+				?>
 					<tr>
-						<td>Some Camera</td>
-						<td>PR - 2</td>
-						<td>225883</td>
-						<td>1</td>
-						<td>$94.00</td>
-						<td>$94.00</td>
+						<td><?php echo $getproduct['product_name'] ?></td>
+						<td><?php echo $getproduct['product_id'] ?></td>
+						<td><?php echo $cartget['cart_product_qty'] ?></td>
+						<td>$<?php echo $getproduct['product_price'] ?></td>
+						<td>$<?php echo $totalpriceofproduct?></td>
 					</tr>
-					<tr>
-						<td>Some Camera</td>
-						<td>PR - 2</td>
-						<td>225883</td>
-						<td>1</td>
-						<td>$94.00</td>
-						<td>$94.00</td>
-					</tr>
-					<tr>
-						<td>Some Camera</td>
-						<td>PR - 2</td>
-						<td>225883</td>
-						<td>1</td>
-						<td>$94.00</td>
-						<td>$94.00</td>
-					</tr>
-					<tr>
-						<td>Some Camera</td>
-						<td>PR - 2</td>
-						<td>225883</td>
-						<td>1</td>
-						<td>$94.00</td>
-						<td>$94.00</td>
-					</tr>
+					<?php $totalprice+=$totalpriceofproduct; } ?>
 				</tbody>
 			</table>
 		</div>
@@ -151,12 +154,12 @@
 
 					<div class="subtotal">
 
-						<p>Sub Total : $26.00</p>
-						<p>Vat 17% : $54.00</p>
+						<p>Sub Total : $<?php echo $totalprice ?></p>
+						<p>Taxes 17% : $<?php echo $taxes=$totalprice%17?></p>
 					</div>
-					<div class="total">Total : <span class="bigprice">$255.00</span></div>
+					<div class="total">Total : <span class="bigprice">$<?php echo $taxes+$totalprice ?></span></div>
 
-					<button class="btn btn-default btn-red btn-sm" title="you will be redirected to payment page">Order Now</button>
+					<button class="btn btn-default btn-red btn-sm" title="you will be redirected to about this website page">Order Now</button>
 				</div>
 				<div class="clearfix"></div>
 			</div>

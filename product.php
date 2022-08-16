@@ -14,7 +14,7 @@ if ($count==0 || $getproduct['product_status'] == 0) {
 	header("Location:prdctnotfound.php");
 }
 ?>
-
+   <!-- i will use this at bundle page -->
 	<!-- <div class="container">
 		<ul class="small-menu">
 			<li><a href="" class="myacc">My Account</a></li>
@@ -35,19 +35,27 @@ if ($count==0 || $getproduct['product_status'] == 0) {
 				</div>
 				<div class="row">
 					<div class="col-md-6">
+
+					
+					<?php
+					$product_id = $getproduct['product_id'];
+					$askproductphoto = $db->prepare("SELECT * FROM productphoto where productphoto_product_id=:productphoto_product_id order by productphoto_id ASC limit 1 ");
+					$askproductphoto->execute(array(
+						'productphoto_product_id' => $product_id
+					));
+					$productimageget = $askproductphoto->fetch(PDO::FETCH_ASSOC);
+					?>
+
+
+
                     <div class="dt-img">
-							<div class="detpricetag"><div class="inner"><?php echo $getproduct['product_moneyunit'] ?><?php echo $getproduct['product_price'] ?></div></div>
-							<a class="fancybox" href="images\sample-1.jpg" data-fancybox-group="gallery" title="<?php echo $getproduct['product_name']?>"><img src="images\sample-1.jpg" alt="" class="img-responsive"></a>
+							<a class="fancybox" href="<?php echo $productimageget['productphoto_imagepath']?>" data-fancybox-group="gallery" title="<?php echo $getproduct['product_name']?>"><img src="<?php echo $productimageget['productphoto_imagepath']?>" alt="" class="img-responsive"></a>
 						</div>
-						<div class="thumb-img">
+
+						<!-- <div class="thumb-img">
 							<a class="fancybox" href="images\sample-2.jpg" data-fancybox-group="gallery" title="Cras neque mi, semper leon"><img src="images\sample-2.jpg" alt="" class="img-responsive"></a>
-						</div>
-						<div class="thumb-img">
-							<a class="fancybox" href="images\sample-3.jpg" data-fancybox-group="gallery" title="Cras neque mi, semper leon"><img src="images\sample-3.jpg" alt="" class="img-responsive"></a>
-						</div>
-						<div class="thumb-img">
-							<a class="fancybox" href="images\sample-4.jpg" data-fancybox-group="gallery" title="Cras neque mi, semper leon"><img src="images\sample-4.jpg" alt="" class="img-responsive"></a>
-						</div>
+						</div> -->
+
 					</div>
 					<div class="col-md-6 det-desc">
 						<div class="productdata">
@@ -151,12 +159,12 @@ if ($count==0 || $getproduct['product_status'] == 0) {
 					</div>
 				</div>
 				
-				<div id="title-bg">
-					<div class="title">Similar Kits</div>
-				</div>
+
 				<div class="row prdct"><!--Products-->
-
-
+				
+				<div id="title-bg">
+					<div class="title">Related Product</div>
+				</div>
 				<?php 	
 
 				$category_id=$getproduct['product_category_id'];
@@ -166,7 +174,7 @@ if ($count==0 || $getproduct['product_status'] == 0) {
 				'category_id' => $category_id
 				));
 
-				while ($productgetbottom=$askproductbottom->fetch(PDO::FETCH_ASSOC)) { ?>
+				while ($productgetbottom=$askproductbottom->fetch(PDO::FETCH_ASSOC))  { ?>
 				
 				
 				<div class="col-md-4">
@@ -177,11 +185,10 @@ if ($count==0 || $getproduct['product_status'] == 0) {
 							</div>
 							<span class="smalltitle"><a href="product-<?=seo($productgetbottom["product_name"])?>"><?php echo $productgetbottom['product_name'];?></a></span>
 							<span class="smalldesc">Item no.: <?php echo $productgetbottom['product_id'];?></span> 
-							<br><br> <span class="smalldesc">CATEGORY: <?php echo $productgetbottom['product_category_id'];?></span>
 						</div>
 					</div>
 
-					<?php } ?>
+					<?php }?>
 
 
 				</div><!--Products-->

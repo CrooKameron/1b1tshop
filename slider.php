@@ -21,8 +21,8 @@
                         <div class="inner">
                             <div class="pro-pricetag big-deal">
                                 <div class="inner">
-                                    <span class="oldprice"><?php echo $sliderget['slider_oldprice'] ?></span>
-                                    <span><?php echo $sliderget['slider_price'] ?></span>
+                                    <span class="oldprice">$<?php echo $sliderget['slider_oldprice'] ?></span>
+                                    <span>$<?php echo $sliderget['slider_price'] ?></span>
                                     <span class="ondeal">Best Deal</span>
                                 </div>
                             </div>

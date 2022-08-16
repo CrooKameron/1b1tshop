@@ -57,7 +57,7 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Slider Price<span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input placeholder="enter slider price here" type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12" name="slider_price">
+                  <input placeholder="enter slider price here" type="number" id="first-name" required="required" class="form-control col-md-7 col-xs-12" name="slider_price">
                 </div>
               </div>
 
@@ -65,7 +65,7 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Slider Old Price<span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input placeholder="enter slider old price here" type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12" name="slider_oldprice">
+                  <input placeholder="enter slider old price here" type="number" id="first-name" required="required" class="form-control col-md-7 col-xs-12" name="slider_oldprice">
                 </div>
               </div>
 
