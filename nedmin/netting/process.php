@@ -872,3 +872,7 @@ if ($_GET['deletecartheader'] == "true") {
     if ($control) header("Location: ../../index.php?status=success");
     else header("Location: ../../index.php?status=fail");
 }
+
+if (isset($_POST['newslettersub'])) {
+    header("Location:../../index.php?status=failed");
+}
