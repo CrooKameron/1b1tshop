@@ -2212,3 +2212,19 @@ img{
 .gotocartbtn{
 	margin: 0 0 -45px 0;
 }
+
+.registertitle{
+	font-size: 24px; 
+}
+
+.crtgdgtntlgdin{
+	color: black; 
+	font-size: 12px; 
+	margin: 5px 5px 0 0;
+}
+
+.popcart-tott{
+	padding:5px 15px;
+	float:right;
+	border-radius:5px;
+}

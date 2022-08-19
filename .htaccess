@@ -22,8 +22,11 @@ RewriteRule ^product-([0-9a-zA-Z-_]+)-([0-9]+)$  product.php?sef=$1&product_id=$
 
 
 
+
+
+
 #404 hata sayfası yönlendirme kodu
-#ErrorDocument 404 http://www.joyakademi.com
+#ErrorDocument 404 http://www.1b1t.com
 
 
 

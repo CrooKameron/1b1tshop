@@ -62,7 +62,12 @@
 				<div class="col-md-9">
 					<ul class="footermenu"><!--footer nav-->
 						<li><a href="index.php">Home</a></li>
-						<li><a href="cart.php">My Cart</a></li>
+						<li><a href="<?php if (isset($_SESSION['useraccountmail'])) {
+							echo "cart.php";
+						} else {
+							echo "register.php?status=notregistered";
+						}
+						 ?>">My Cart</a></li>
 						<li><a href="checkout.php">Checkout</a></li>
 						<li><a href="about.php">About us</a></li>
 					</ul><!--footer nav-->
@@ -75,7 +80,7 @@
 				<div class="col-md-3"><!--footer Share-->
 					<div class="followon">Follow us on</div>
 					<div class="fsoc">
-						<a href="<?php echo $settingget['settings_twitter'] ?>;" class="ftwitter">Twitter</a>
+						<a href="<?php echo $settingget['settings_twitter'] ?>;" class="ftwitter">Twitter</a> 
 						<a href="<?php echo $settingget['settings_facebook'] ?>;" class="ffacebook">Facebook</a>
 						<a href="<?php echo $settingget['settings_youtube'] ?>;" class="fflickr">Youtube</a>
 						<a href="<?php echo $settingget['settings_google'] ?>;" class="ffeed">Google</a>

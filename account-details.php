@@ -60,7 +60,7 @@ error_reporting(~E_NOTICE); ?>
                 <?php } ?>
 
                 <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12 lbl-16" for="first-name">Mail adress<span class="required">:</span>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12 lbl-16" for="first-name">Username<span class="required">:</span>
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <input value="<?php echo $accountget['account_mail'] ?>" type="text" disabled class="form-control col-md-7 col-xs-12 col-xs-129">

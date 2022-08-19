@@ -73,7 +73,8 @@ if (isset($_POST['registeraccount'])) {
                 ));
 
                 if ($insert) {
-                    header("Location:../../index.php"); // TO DO LIST OBJECT 1: i need to start the session the moment the account created. and after ppl clicking on create account they should redirected to indeex.php with logged in
+                    $_SESSION['useraccountmail'] = $account_mail;
+                    header("Location:../../?status=login_success");
                 } else {
                     header("Location:../../register.php?status=unknownfail");
                 }
@@ -114,31 +115,33 @@ if (isset($_POST['updateaccountdetails1'])) {
 
 if (isset($_POST['updateaccountdetails2'])) {
 
-
     $askaccount = $db->prepare("SELECT * FROM account where account_mail=:mail");
     $askaccount->execute(array(
-        'mail' => $_SESSION['account_mail']
+        'mail' => $_SESSION['useraccountmail']
     ));
     $accountget = $askaccount->fetch(PDO::FETCH_ASSOC);
 
 
 
-    $md5oldpasswordinput =  md5($_POST['account_password']);
-    $md5newpasswordinput1 =  md5($_POST['account_password1']);
-    $md5newpasswordinput2 =  md5($_POST['account_password2']);
+    $md5oldpasswordinput = md5($_POST['account_password']);
+    $md5newpasswordinput1 = md5($_POST['account_password1']);
+    $md5newpasswordinput2 = md5($_POST['account_password2']);
 
-    $oldpasswordinput =  $_POST['account_password'];
-    $newpasswordinput =  $_POST['account_password1'];
+    $oldpasswordinput = $_POST['account_password'];
+    $newpasswordinput = $_POST['account_password1'];
 
     $md5oldpassword = $accountget['account_password'];
+    
 
-    
-    
-    if ($md5oldpasswordinput == $md5oldpassword) header('Location:../../account-details.php?status=incorrectpassword');
-    else { if ($md5newpasswordinput1 != $md5newpasswordinput2) header('Location:../../account-details.php?status=passwordsdoesntmatch');
-        else { if (strlen($newpasswordinput) <= 6) header('Location:../../account-details.php?status=passwordtooshort');  
-            else { if ($md5newpasswordinput1 == $md5oldpassword) header('Location:../../account-details.php?status=passwordcantbesame');
-                else {
+
+    if ($md5oldpasswordinput == $md5oldpassword) {
+
+        if ($md5newpasswordinput1 == $md5newpasswordinput2) {
+
+            if (strlen($newpasswordinput) >= 7) {
+
+                if ($md5newpasswordinput1 != $md5oldpassword) {
+
                     $accountsave = $db->prepare("UPDATE account SET
                     account_password=:account_password1
                     where account_id = {$_POST['hiddeninput_account_id']}
@@ -151,10 +154,12 @@ if (isset($_POST['updateaccountdetails2'])) {
                     if ($update) header('Location:../../index.php?status=update_success');
 
                     else header('Location:../../account-details.php?status=unknownfail');
-                }
-            }
-        }
-    }
+
+
+                } else {header('Location:../../account-details.php?status=passwordcantbesame');}
+            } else {header('Location:../../account-details.php?status=passwordtooshort');}
+        } else {header('Location:../../account-details.php?status=passwordsdoesntmatch');}
+    } else {header('Location:../../account-details.php?status=incorrectpassword');}
 }
 
 if (isset($_POST['adminlogin'])) {
@@ -804,53 +809,53 @@ if (isset($_POST['addproduct'])) {
 }
 
 if (isset($_POST['addtocart'])) {
-    
-    $save = $db->prepare("INSERT INTO cart SET 
-    cart_product_qty=:cart_product_qty,
-    cart_account_id=:cart_account_id,
-    cart_product_id=:cart_product_id
-");
+
+    if (!isset($_SESSION['useraccountmail'])) {
+        header("Location:../../register.php?status=notregistered");
+    } else {
+        $save = $db->prepare("INSERT INTO cart SET 
+        cart_product_qty=:cart_product_qty,
+        cart_account_id=:cart_account_id,
+        cart_product_id=:cart_product_id");
+    }
 
 
-$insert = $save->execute(array(
-    'cart_product_qty' => $_POST['cart_product_qty'],
-    'cart_account_id' => $_POST['account_id'],
-    'cart_product_id' => $_POST['product_id']
-));
+    $insert = $save->execute(array(
+        'cart_product_qty' => $_POST['cart_product_qty'],
+        'cart_account_id' => $_POST['account_id'],
+        'cart_product_id' => $_POST['product_id']
+    ));
 
-if ($insert) header("Location: ../../cart.php?status=sucsess");
+    if ($insert) header("Location: ../../cart.php?status=sucsess");
 
-else header("Location: ../../index.php?status=fail");
+    else header("Location: ../../index.php?status=fail");
 }
 
 
-if(isset($_POST['productphotodelete'])) {
+if (isset($_POST['productphotodelete'])) {
 
-	$product_id=$_POST['product_id'];
-
-
-	echo $checklist = $_POST['productphotoselect'];
-
-	
-	foreach($checklist as $list) {
-
-		$sil=$db->prepare("DELETE from productphoto where productphoto_id=:productphoto_id");
-		$kontrol=$sil->execute(array(
-			'productphoto_id' => $list
-			));
-	}
-
-	if ($kontrol) {
-
-		Header("Location:../production/product-gallery.php?product_id=$product_id&status=ok");
-
-	} else {
-
-		Header("Location:../production/product_gallery.php?product_id=$product_id&status=no");
-	}
+    $product_id = $_POST['product_id'];
 
 
-} 
+    echo $checklist = $_POST['productphotoselect'];
+
+
+    foreach ($checklist as $list) {
+
+        $sil = $db->prepare("DELETE from productphoto where productphoto_id=:productphoto_id");
+        $kontrol = $sil->execute(array(
+            'productphoto_id' => $list
+        ));
+    }
+
+    if ($kontrol) {
+
+        Header("Location:../production/product-gallery.php?product_id=$product_id&status=ok");
+    } else {
+
+        Header("Location:../production/product_gallery.php?product_id=$product_id&status=no");
+    }
+}
 
 if ($_GET['deletecart'] == "true") {
     $destroy = $db->prepare("DELETE from cart where cart_id=:id");

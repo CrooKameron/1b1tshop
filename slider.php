@@ -14,7 +14,7 @@
                 <div class="item">
                     <div class="slide-desc">
                         <div class="inner">
-                            <h1><?php echo $sliderget['slider_title']?></h1>
+                            <h1><?php echo $sliderget['slider_title'] ?></h1>
                             <div class="slider-description"><?php echo $sliderget['slider_desc'] ?></div>
                             <a href="<?php echo $sliderget['slider_link'] ?>"> <button class="btn btn-default btn-red btn-lg">Add to cart</button></a>
                         </div>
@@ -55,22 +55,22 @@
 <div class="bar"></div>
 <div id="sync2" class="owl-carousel">
 
-<?php
-        $askslider = $db->prepare("SELECT * FROM slider");
-        $askslider->execute(array());
+    <?php
+    $askslider = $db->prepare("SELECT * FROM slider");
+    $askslider->execute(array());
 
-        while ($sliderget = $askslider->fetch(PDO::FETCH_ASSOC)) {
-            if ($sliderget['slider_status'] == 1) {
-        ?>
+    while ($sliderget = $askslider->fetch(PDO::FETCH_ASSOC)) {
+        if ($sliderget['slider_status'] == 1) {
+    ?>
 
-    <div class="item">
-        <div class="slide-type-1-sync">
-            <h3><?php echo $sliderget['slider_title']?></h3>
-        </div>
-    </div>
+            <div class="item">
+                <div class="slide-type-1-sync">
+                    <h3><?php echo $sliderget['slider_title'] ?></h3>
+                </div>
+            </div>
 
     <?php }
-        }   ?>
+    }   ?>
 
 
 </div>

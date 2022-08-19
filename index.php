@@ -1,9 +1,10 @@
 <?php include('header.php'); ?>
 	<div class="container">
 		<div class="clearfix"></div>
-		<div class="lines"></div>
-
-<?php include("slider.php") ?>
+		
+ <div class="lines"></div>
+			
+<?php  include("slider.php") ?> 
 
 		
 <?php include("featured.php") ?>  <!-- featured products bar will not appear if you dont have 4 or more featured products -->

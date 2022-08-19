@@ -4,7 +4,7 @@
     <script src="bootstrap\js\bootstrap.min.js"></script>
 	
 	<!-- map -->
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> 
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script> 
 	<script type="text/javascript" src="js\jquery.ui.map.js"></script>
 	<script type="text/javascript" src="js\demo.js"></script>
 	

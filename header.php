@@ -1,7 +1,7 @@
 <?php
+error_reporting(~E_NOTICE & ~E_WARNING);
 include('nedmin/netting/connect.php');
 include('nedmin/production/function.php');
-error_reporting(~E_NOTICE);
 $asksetting = $db->prepare("SELECT * FROM settings where settings_id=:id");
 $asksetting->execute(array(
 	'id' => 0
@@ -32,7 +32,7 @@ $accountget = $askaccount->fetch(PDO::FETCH_ASSOC);
 	<link href='http://fonts.googleapis.com/css?family=Ubuntu:400,400italic,700' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
 	<link href='font-awesome\css\font-awesome.css' rel="stylesheet" type="text/css">
-	<link rel="icon" type="image/x-icon" href="/images/shulker-box.webp">
+	<link rel="icon" type="image/x-icon" href="/images/shulker-box.ico">
 	<!-- Bootstrap -->
 	<link href="bootstrap\css\bootstrap.min.css" rel="stylesheet">
 
@@ -84,7 +84,7 @@ $accountget = $askaccount->fetch(PDO::FETCH_ASSOC);
 
 												<form role="form" action="nedmin/netting/process.php" method="POST">
 													<div class="form-group">
-														<input type="text" class="form-control" id="username" name="account_mail" placeholder="Mail">
+														<input type="text" class="form-control" id="username" name="account_mail" placeholder="Username">
 													</div>
 													<div class="form-group">
 														<input type="password" class="form-control" id="password" name="account_password" placeholder="Password">
@@ -126,7 +126,7 @@ $accountget = $askaccount->fetch(PDO::FETCH_ASSOC);
 								<div class="srchwrap">
 									<div class="row">
 										<div class="col-md-12">
-											<form class="form-horizontal" role="form" method="POST" >
+											<form class="form-horizontal" role="form" method="POST">
 												<div class="form-group">
 													<label for="search" class="col-sm-2 control-label">Search</label>
 													<div class="col-sm-10">
@@ -189,80 +189,106 @@ $accountget = $askaccount->fetch(PDO::FETCH_ASSOC);
 
 
 
-
-						<!-- cart -->
-						<div class="col-md-2 machart">
-							<button id="popcart" class="btn btn-default btn-chart btn-sm "><span class="mychart">Cart</span>|<span class="allprice">$0.00</span></button>
-							<div class="popcart">
-								<table class="table table-condensed popcart-inner">
-									<tbody>
-										<?php
-										$userid = $accountget['account_id'];
-										$askcart = $db->prepare("SELECT * FROM cart where cart_account_id=:id");
-										$askcart->execute(array(
-											'id' => $userid
-										)); 
-										$totalprice=0;
-
-
-
-										while ($cartget = $askcart->fetch(PDO::FETCH_ASSOC)) {
-
-											$product_id = $cartget['cart_product_id'];
-											$askproduct = $db->prepare("SELECT * FROM product where product_id=:product_id");
-											$askproduct->execute(array(
-												'product_id' => $product_id
+						<?php
+						if (isset($_SESSION['useraccountmail'])) { ?>
+							<!-- cart -->
+							<div class="col-md-2 machart">
+								<button id="popcart" class="btn btn-default btn-chart btn-sm "><span class="mychart">Cart</span>|<span class="allprice">$0.00</span></button>
+								<div class="popcart">
+									<table class="table table-condensed popcart-inner">
+										<tbody>
+											<?php
+											$userid = $accountget['account_id'];
+											$askcart = $db->prepare("SELECT * FROM cart where cart_account_id=:id");
+											$askcart->execute(array(
+												'id' => $userid
 											));
-											$getproduct = $askproduct->fetch(PDO::FETCH_ASSOC);
-											
-											
-											$totalpriceofproduct = $getproduct['product_price'] * $cartget['cart_product_qty'];
-
-
-											$askcategory=$db->prepare("SELECT * FROM category where category_id=:category_id");
-											$askcategory-> execute(array(	
-											'category_id' => $getproduct['product_category_id']
-											));
-											$categoryget=$askcategory->fetch(PDO::FETCH_ASSOC);
+											$totalprice = 0;
 
 
 
-											$product_id = $getproduct['product_id'];
+											while ($cartget = $askcart->fetch(PDO::FETCH_ASSOC)) {
 
-											$askproductphoto = $db->prepare("SELECT * FROM productphoto where productphoto_product_id=:productphoto_product_id order by productphoto_id ASC limit 1 ");
-											$askproductphoto->execute(array(
-												'productphoto_product_id' => $product_id
-											));
-											$productimageget = $askproductphoto->fetch(PDO::FETCH_ASSOC);
+												$product_id = $cartget['cart_product_id'];
+												$askproduct = $db->prepare("SELECT * FROM product where product_id=:product_id");
+												$askproduct->execute(array(
+													'product_id' => $product_id
+												));
+												$getproduct = $askproduct->fetch(PDO::FETCH_ASSOC);
 
-										?>
-											<tr>
-												<td>
-													<a class="no-select" href="<?php echo $productimageget['productphoto_imagepath']?>"><img src="<?php echo $productimageget['productphoto_imagepath']?>" alt="" class="img-responsive"></a>
-												</td>
-												<td><a class="no-select" href="product.htm"><?php echo $getproduct['product_name']?></a><br class="no-select"><span class="no-select">Category: <?php echo $categoryget['category_name'] ?></span></td>
-												<td><?php echo $cartget['cart_product_qty'] ?>x</td>
-												<td>$<?php echo $totalpriceofproduct ?></td>
-												<td><a class="no-select" href="nedmin/netting/process.php?cart_id=<?php echo $cartget['cart_id']?>&deletecartheader=true"><i class="fa fa-times-circle fa-2x"></i></a></td>
-											</tr>
-										<?php $totalprice+=$totalpriceofproduct; } ?>
-									</tbody>
-								</table>
-								<br>
-								<div class="btn-popcart">
-									<a href="cart.php" class="btn btn-default btn-red btn-sm gotocartbtn">Go to Cart</a>
+
+												$totalpriceofproduct = $getproduct['product_price'] * $cartget['cart_product_qty'];
+
+
+												$askcategory = $db->prepare("SELECT * FROM category where category_id=:category_id");
+												$askcategory->execute(array(
+													'category_id' => $getproduct['product_category_id']
+												));
+												$categoryget = $askcategory->fetch(PDO::FETCH_ASSOC);
+
+
+
+												$product_id = $getproduct['product_id'];
+
+												$askproductphoto = $db->prepare("SELECT * FROM productphoto where productphoto_product_id=:productphoto_product_id order by productphoto_id ASC limit 1 ");
+												$askproductphoto->execute(array(
+													'productphoto_product_id' => $product_id
+												));
+												$productimageget = $askproductphoto->fetch(PDO::FETCH_ASSOC);
+
+											?>
+												<tr>
+													<td>
+														<a class="no-select" href="<?php echo $productimageget['productphoto_imagepath'] ?>"><img src="<?php echo $productimageget['productphoto_imagepath'] ?>" alt="" class="img-responsive"></a>
+													</td>
+													<td><a class="no-select" href="product.htm"><?php echo $getproduct['product_name'] ?></a><br class="no-select"><span class="no-select">Category: <?php echo $categoryget['category_name'] ?></span></td>
+													<td><?php echo $cartget['cart_product_qty'] ?>x</td>
+													<td>$<?php echo $totalpriceofproduct ?></td>
+													<td><a class="no-select" href="nedmin/netting/process.php?cart_id=<?php echo $cartget['cart_id'] ?>&deletecartheader=true"><i class="fa fa-times-circle fa-2x"></i></a></td>
+												</tr>
+											<?php $totalprice += $totalpriceofproduct;
+											} ?>
+										</tbody>
+									</table>
+									<br>
+									<div class="btn-popcart">
+										<a href="cart.php" class="btn btn-default btn-red btn-sm gotocartbtn">Go to Cart</a>
+									</div>
+									<div class="popcart-tot">
+										<p>
+											Total<br>
+											<span>$<?php echo $totalprice ?></span>
+										</p>
+									</div>
+									<div class="clearfix"></div>
 								</div>
-								<div class="popcart-tot">
-									<p>
-										Total<br>
-										<span>$<?php echo $totalprice ?></span>
-									</p>
-								</div>
-								<div class="clearfix"></div>
 							</div>
-						</div>
-						<!-- cart -->
-
+							<!-- cart -->
+						<?php } else { ?>
+							<!-- cart -->
+							<div class="col-md-2 machart">
+								<button id="popcart" class="btn btn-default btn-chart btn-sm "><span class="mychart">Cart</span>|<span class="allprice">$0.00</span></button>
+								<div class="popcart">
+									<table class="table">
+										<tbody>
+											<tr>
+												<td><span class="crtgdgtntlgdin">You need to log in or create an account to use cart</span></td>
+											</tr>
+										</tbody>
+									</table>
+									<div class="btn-popcart">
+										<a href="register.php" class="btn btn-info btn-sm gotocartbtn">Create one!</a>
+									</div>
+									<div class="popcart-tott">
+										<p>
+											<br><br>
+										</p>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+							<!-- cart -->
+						<?php } ?>
 
 
 					</div>

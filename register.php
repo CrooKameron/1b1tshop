@@ -3,20 +3,31 @@
 error_reporting(~E_NOTICE);?>
 
 <div class="container">
-	<div class="row">
-		<div class="col-md-12">
-			<div class="page-title-wrap">
-				<div class="page-title-inner">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="bigtitle">Register</div>
-						</div>
 
+	<?php
+	if ($_GET['status'] == "notregistered") { ?>
+		
+		<div class="row">
+			<div class="col-md-12">
+				<div class="page-title-wrap">
+					<div class="page-title-inner">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="bigtitle registertitle">You need to create an account or log in<br>to add items in your cart</div>
+							</div>
+	
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	
+	
+	<?php } else {
+		# code...
+	}
+	
+	?>
 
 	<form action="nedmin/netting/process.php" method="POST" class="form-horizontal checkout" role="form">
 		<div class="row">
@@ -92,6 +103,7 @@ error_reporting(~E_NOTICE);?>
 				<div class="form-group">
 				<div class="col-sm-12">
 					<input type="email" class="form-control" required="" name="oooooooooo" placeholder="Mail adress.">
+					<span style="margin:0 0 0 10px; font-size: 10px;">you need to use your mail adress as your username to use this feature</span>
 				</div>
 			</div>
 			<button type="submit" name="passwordresetaccount" class="btn btn-default btn-info">Send password reset request</button>

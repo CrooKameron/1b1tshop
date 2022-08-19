@@ -55,7 +55,7 @@
 						<td><img src="<?php echo $productimageget['productphoto_imagepath'] ?>" width="100" alt=""></td>
 						<td><p class="crtrmvitmtext"><?php echo $getproduct['product_name']?></p></td>
 						<td><p class="crtrmvitmtext"><?php echo $getproduct['product_id']?></p></td>
-						<td><form><input type="text" class="form-control quantity crtrmvitm" value="<?php echo $cartget['cart_product_qty']?>"></form></td>
+						<td><p class="crtrmvitmtext"><?php echo $cartget['cart_product_qty']?></form></td>
 						<td><p class="crtrmvitmtext">$<?php echo $getproduct['product_price']?></p></td>
 						<td><p class="crtrmvitmtext">$<?php echo $totalpriceofproduct ?></p></td>
 					</tr>
