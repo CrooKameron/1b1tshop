@@ -7,7 +7,6 @@ $asksetting-> execute(array(
   'id' => 0
 ));
 $aboutget=$asksetting->fetch(PDO::FETCH_ASSOC)
-
 ?>
 
 	
