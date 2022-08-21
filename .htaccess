@@ -17,6 +17,7 @@ RewriteRule ^category-([0-9a-zA-Z-_]+)  category.php?sef=$1 [L,QSA]
 
 # RewriteRule ^product-([0-9a-zA-Z-_]+)  product.php?sef=$1 [L,QSA]
 RewriteRule ^product-([0-9a-zA-Z-_]+)-([0-9]+)$  product.php?sef=$1&product_id=$2 [L,QSA]
+RewriteRule ^bundle-([0-9a-zA-Z-_]+)-([0-9]+)$  bundle.php?sef=$1&bundle_id=$2 [L,QSA]
 
 
 

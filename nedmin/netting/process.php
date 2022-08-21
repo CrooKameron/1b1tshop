@@ -131,7 +131,7 @@ if (isset($_POST['updateaccountdetails2'])) {
     $newpasswordinput = $_POST['account_password1'];
 
     $md5oldpassword = $accountget['account_password'];
-    
+
 
 
     if ($md5oldpasswordinput == $md5oldpassword) {
@@ -154,12 +154,18 @@ if (isset($_POST['updateaccountdetails2'])) {
                     if ($update) header('Location:../../index.php?status=update_success');
 
                     else header('Location:../../account-details.php?status=unknownfail');
-
-
-                } else {header('Location:../../account-details.php?status=passwordcantbesame');}
-            } else {header('Location:../../account-details.php?status=passwordtooshort');}
-        } else {header('Location:../../account-details.php?status=passwordsdoesntmatch');}
-    } else {header('Location:../../account-details.php?status=incorrectpassword');}
+                } else {
+                    header('Location:../../account-details.php?status=passwordcantbesame');
+                }
+            } else {
+                header('Location:../../account-details.php?status=passwordtooshort');
+            }
+        } else {
+            header('Location:../../account-details.php?status=passwordsdoesntmatch');
+        }
+    } else {
+        header('Location:../../account-details.php?status=incorrectpassword');
+    }
 }
 
 if (isset($_POST['adminlogin'])) {
@@ -632,6 +638,25 @@ if (isset($_POST['slideradd'])) {
     else header('Location:../production/slider.php?status=fail');
 }
 
+
+if (isset($_POST['bundleproductadd'])) {
+
+    $addbundle = $db->prepare("INSERT INTO bundle SET 
+        bundle_product_id=:bundle_product_id,
+        bundle_slider_id=:bundle_slider_id
+    ");
+
+    $update = $addbundle->execute(array(
+        'bundle_product_id' => $_POST['Product_id'],
+        'bundle_slider_id' => $_POST['slider_id']
+    ));
+
+
+    if ($update) header('Location:../production/slider-product-edit.php?status=success&slider_id=' . $_POST['slider_id']);
+
+    else header('Location:../production/slider-product-edit.php?status=fail&slider_id=' . $_POST['slider_id']);
+}
+
 if ($_GET['deleteslider'] == "true") {
     $destroy = $db->prepare("DELETE from slider where slider_id=:id");
     $control = $destroy->execute(array(
@@ -880,4 +905,20 @@ if ($_GET['deletecartheader'] == "true") {
 
 if (isset($_POST['newslettersub'])) {
     header("Location:../../index.php?status=failed");
+}
+
+if ($_GET['bundleproductdel'] == "true") {
+
+
+    $destroy = $db->prepare("DELETE from bundle where bundle_id=:id");
+    $control = $destroy->execute(array(
+        'id' => $_GET['bundle_id']
+    ));
+
+
+    $sliderid = $_GET['slider_id'];
+
+    if ($control) header('Location:../production/slider-product-edit.php?status=success&slider_id=' . $sliderid);
+
+    else header('Location:../production/slider-product-edit.php?status=fail&slider_id=' . $sliderid);
 }

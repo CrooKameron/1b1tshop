@@ -1,5 +1,4 @@
-<?php 
-include'header.php';
+<?php include 'header.php';
 
 $askslider=$db->prepare("SELECT * FROM slider");
 $askslider-> execute();
@@ -74,10 +73,11 @@ $askslider-> execute();
                                 <tr>
                                     <th style="text-align:center;">Order</th>
                                     <th style="text-align:center;">Name</th>
-                                    <th style="text-align:center;">Image</th>
-                                    <th style="text-align:center;">status</th>
-                                    <th style="text-align:center;">edit</th>
-                                    <th style="text-align:center;">delete</th>
+                                    <th style="text-align:center; width: 240px;">Image</th>
+                                    <th style="text-align:center; width: 100px;">Image</th>
+                                    <th style="text-align:center; width: 100px;">status</th>
+                                    <th style="text-align:center; width: 100px;">edit</th>
+                                    <th style="text-align:center; width: 100px;">delete</th>
 
                                 </tr>
                             </thead>
@@ -89,32 +89,37 @@ $askslider-> execute();
                                 <tr>
                                     <td width="20"><?php echo $sliderget['slider_order']?></td>
                                     <td><?php echo $sliderget['slider_name']?></td>
-                                    <td><img src="../../<?php echo $sliderget['slider_imagepath']?>" width="240" height="96"></td>
+                                    <td><center><img src="../../<?php echo $sliderget['slider_imagepath']?>" width="240" height="96"></center></td>
                                     <!-- status button start -->
                                     <td align="center">
 
                                         <?php 
                   
                   if ($sliderget['slider_status']==1){ ?> <button class="btn btn-success"
-                                            style="width:100%; height:100%;">active</button> <?php } 
+                                            style="width:100%; height:100%; margin:30px 0 0 0;" disabled>active</button> <?php } 
                   if ($sliderget['slider_status']==0) { ?> <button class="btn btn-danger"
-                                            style="width:100%; height:100%;">passive</button> <?php }
+                                            style="width:100%; height:100%; margin:30px 0 0 0;" disabled>passive</button> <?php }
                   
                   ?>
 
 
                                     </td>
+
+                                    <td>
+                                        <center> <a href="slider-product-edit.php?slider_id=<?php echo $sliderget['slider_id'] ?>"><button style="width:100%; height:100%; margin:30px 0 0 0;"
+                                                    class="btn btn-info">Edit products</button></a></center>
+                                    </td>
                                     
                                     <td>
                                         <center> <a
                                                 href="../netting/process.php?slider_id=<?php echo $sliderget['slider_id'] ?>&deleteslider=true"><button
-                                                    style="width:100%; height:100%;"
+                                                    style="width:100%; height:100%; margin:30px 0 0 0;"
                                                     class="btn btn-danger">Delete</button></a></center>
                                     </td>
                                     <td>
                                         <center> <a
                                                 href="slider-edit.php?slider_id=<?php echo $sliderget['slider_id'] ?>">
-                                                <button style="width:100%; height:100%;"
+                                                <button style="width:100%; height:100%; margin:30px 0 0 0;"
                                                     class="btn btn-primary ">Edit</button></a></center>
                                     </td>
                                 </tr>

@@ -114,8 +114,8 @@ if ($count==0) {
                   <li><a href="about.php"><i class="fa fa-info"></i>About</a></li>
                   <li><a href="accounts.php"><i class="fa fa-user"></i>Accounts</a></li>
                   <li><a href="menu.php"><i class="fa fa-bars"></i>Menus</a></li>
-                  <li><a href="slider.php"><i class="fa fa-map-o"></i>Sliders</a></li>
                   <li><a href="category.php"><i class="fa fa-list"></i>Categories</a></li>
+                  <li><a href="slider.php"><i class="fa fa-map-o"></i>Sliders</a></li>
                   <li><a href="product.php"><i class="fa fa-shopping-bag"></i>Products</a></li>
                 </ul>
               </div>

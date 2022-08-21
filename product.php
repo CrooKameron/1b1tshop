@@ -174,13 +174,27 @@ if ($count==0 || $getproduct['product_status'] == 0) {
 				'category_id' => $category_id
 				));
 
-				while ($productgetbottom=$askproductbottom->fetch(PDO::FETCH_ASSOC))  { ?>
+				while ($productgetbottom=$askproductbottom->fetch(PDO::FETCH_ASSOC))  { 
+					
+					$product_id = $productgetbottom['product_id'];
+
+
+					$askproductphoto = $db->prepare("SELECT * FROM productphoto where productphoto_product_id=:productphoto_product_id order by productphoto_id ASC limit 1 ");
+					$askproductphoto->execute(array(
+						'productphoto_product_id' => $product_id
+					));
+					$productimageget = $askproductphoto->fetch(PDO::FETCH_ASSOC);
+					
+					?>
+
+
+
 				
 				
 				<div class="col-md-4">
 						<div class="productwrap">
 							<div class="pr-img">
-								<a href="product-<?=seo($productgetbottom["product_name"])."-".$productgetbottom['product_id']?>"><img src="images\sample-3.jpg" alt="" class="img-responsive"></a>
+								<a href="product-<?=seo($productgetbottom["product_name"])."-".$productgetbottom['product_id']?>"><img src="<?php echo $productimageget['productphoto_imagepath'] ?>" alt="" class="img-responsive"></a>
 								<div class="pricetag on-sale"><div class="inner on-sale"><span class="onsale"><!--<span class="oldprice">$314</span>--><?php echo $productgetbottom['product_moneyunit'].$productgetbottom['product_price'];?></span></div></div>
 							</div>
 							<span class="smalltitle"><a href="product-<?=seo($productgetbottom["product_name"])?>"><?php echo $productgetbottom['product_name'];?></a></span>
