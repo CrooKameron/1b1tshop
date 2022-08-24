@@ -13,6 +13,8 @@ $asksetting-> execute(array(
 ));
 $settingget=$asksetting->fetch(PDO::FETCH_ASSOC);
 
+
+
 $asksetting=$db->prepare("SELECT * FROM about where about_id=:id");
 $asksetting-> execute(array(
   'id' => 0

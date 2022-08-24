@@ -1,4 +1,4 @@
-<?php include"header.php"; ?>
+<?php include "header.php"; ?>
         <!-- page content -->
         <div class="right_col" role="main">
           <div class="">
@@ -123,16 +123,14 @@
                       </div>
 
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Maintenance mode (BROKEN)<span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Maintenance mode <span class="required">*</span>
                         </label>
                       <div style="margin:0 0 0 10px;" id="gender" class="btn-group" data-toggle="buttons">
-
-                            <label class="btn btn-default " data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                              <input type="radio" name="setting_maintenance" value="<?php echo $settingget['settings_logo'] ?>"> on </label>
-
-                            <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                              <input type="radio" name="setting_maintenance" value="<?php echo $settingget['settings_logo'] ?>"> off </label>
-                          </div>
+                        <select name="settings_maintenance" id="heard" class="form-control" required>
+                          <option value="0" <?php if ($settingget['settings_maintenance'] == 0) { echo 'selected=""'; }  ?>> Passive </option>
+                          <option value="1" <?php if ($settingget['settings_maintenance'] == 1) { echo 'selected=""'; }  ?>> Active  </option>
+                        </select>
+                      </div>
 
 
                      
@@ -155,4 +153,4 @@
 
 
         <!-- /page content -->
-<?php include"footer.php"; ?>
+<?php include "footer.php"; ?>

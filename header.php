@@ -8,6 +8,13 @@ $asksetting->execute(array(
 ));
 $settingget = $asksetting->fetch(PDO::FETCH_ASSOC);
 
+
+if ($settingget['settings_maintenance'] == "1") {
+	header("Location:maintenance/");
+}
+
+
+
 $askaccount = $db->prepare("SELECT * FROM account where account_mail=:id");
 $askaccount->execute(array(
 	'id' => $_SESSION['useraccountmail']

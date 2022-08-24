@@ -239,14 +239,16 @@ if (isset($_POST['generalsettingssend'])) {
     settings_title=:settings_title,
     settings_description=:settings_description,
     settings_keywords=:settings_keywords,
-    settings_author=:settings_author
+    settings_author=:settings_author,
+    settings_maintenance=:settings_maintenance
     WHERE settings_id = 0");
 
     $update = $settingsave->execute(array(
         'settings_title' => $_POST['settings_title'],
         'settings_description' => $_POST['settings_description'],
         'settings_keywords' => $_POST['settings_keywords'],
-        'settings_author' => $_POST['settings_author']
+        'settings_author' => $_POST['settings_author'],
+        'settings_maintenance' => $_POST['settings_maintenance']
 
     ));
 
