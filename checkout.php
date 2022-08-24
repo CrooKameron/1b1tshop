@@ -117,7 +117,8 @@
 						'product_id' => $product_id
 					));
 					$getproduct = $askproduct->fetch(PDO::FETCH_ASSOC);
-					$totalpriceofproduct = $getproduct['product_price'] * $cartget['cart_product_qty'];
+
+
 
 
 					$product_id = $getproduct['product_id'];
@@ -129,13 +130,26 @@
 					$productimageget = $askproductphoto->fetch(PDO::FETCH_ASSOC);
 
 
+
+
+					$askslider = $db->prepare("SELECT * FROM slider where slider_id=:id");
+					$askslider->execute(array(
+						'id' => $cartget['cart_slider_id']
+					));
+					$sliderget = $askslider->fetch(PDO::FETCH_ASSOC);
+
+
+					
+					
+					if     ($cartget['cart_product_id'] != null) {$totalpriceofproduct = $getproduct['product_price'] * $cartget['cart_product_qty']; } 
+					elseif ($cartget['cart_product_id'] == null) {$totalpriceofproduct = $sliderget['slider_price'] * $cartget['cart_product_qty']; } 
 				?>
 					<tr>
-						<td><?php echo $getproduct['product_name'] ?></td>
-						<td><?php echo $getproduct['product_id'] ?></td>
+						<td><?php if ($cartget['cart_product_id'] != null) { echo $getproduct['product_name']; } elseif ($cartget['cart_product_id'] == null) { echo $sliderget['slider_name']; } ?>   </td>
+						<td><?php if ($cartget['cart_product_id'] != null) { echo $getproduct['product_id']; } elseif ($cartget['cart_product_id'] == null) { echo $sliderget['slider_id']; } ?>   </td>
 						<td><?php echo $cartget['cart_product_qty'] ?></td>
-						<td>$<?php echo $getproduct['product_price'] ?></td>
-						<td>$<?php echo $totalpriceofproduct?></td>
+						<td>$ <?php if ($cartget['cart_product_id'] != null) { echo $getproduct['product_price']; } elseif ($cartget['cart_product_id'] == null) { echo $sliderget['slider_price']; } ?> </td>
+						<td>$<?php  echo $totalpriceofproduct ?></td>
 					</tr>
 					<?php $totalprice+=$totalpriceofproduct; } ?>
 				</tbody>

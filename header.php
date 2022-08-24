@@ -174,13 +174,13 @@ $accountget = $askaccount->fetch(PDO::FETCH_ASSOC);
 
 									while ($menuget = $askmenu->fetch(PDO::FETCH_ASSOC)) {
 
-									?><li><a class="no-select" href="<?php
-																		if (!empty($menuget['menu_url'])) {
+									?><li>
+											<a class="no-select" href="<?php if (!empty($menuget['menu_url'])) {
 																			echo $menuget['menu_url'];
 																		} else {
 																			echo "page-" . seo($menuget['menu_name']);
-																		}
-																		?>"><?php echo $menuget['menu_name'] ?></a></li>
+																		} ?>"><?php echo $menuget['menu_name'] ?> </a>
+										</li>
 									<?php } ?>
 								</ul>
 							</div>
@@ -216,32 +216,42 @@ $accountget = $askaccount->fetch(PDO::FETCH_ASSOC);
 												));
 												$getproduct = $askproduct->fetch(PDO::FETCH_ASSOC);
 
-
-												$totalpriceofproduct = $getproduct['product_price'] * $cartget['cart_product_qty'];
-
-
-												$askcategory = $db->prepare("SELECT * FROM category where category_id=:category_id");
-												$askcategory->execute(array(
-													'category_id' => $getproduct['product_category_id']
-												));
-												$categoryget = $askcategory->fetch(PDO::FETCH_ASSOC);
-
-
-
-												$product_id = $getproduct['product_id'];
-
+												
 												$askproductphoto = $db->prepare("SELECT * FROM productphoto where productphoto_product_id=:productphoto_product_id order by productphoto_id ASC limit 1 ");
 												$askproductphoto->execute(array(
 													'productphoto_product_id' => $product_id
 												));
 												$productimageget = $askproductphoto->fetch(PDO::FETCH_ASSOC);
 
+												
+												
+												$askcategory = $db->prepare("SELECT * FROM category where category_id=:category_id");
+												$askcategory->execute(array(
+													'category_id' => $getproduct['product_category_id']
+												));
+												$categoryget = $askcategory->fetch(PDO::FETCH_ASSOC);
+												
+												
+												$product_id = $getproduct['product_id'];
+												
+
+												$askslider = $db->prepare("SELECT * FROM slider where slider_id=:id");
+												$askslider->execute(array(
+													'id' => $cartget['cart_slider_id']
+												));
+												$sliderget = $askslider->fetch(PDO::FETCH_ASSOC);
+													
+												
+												if     ($cartget['cart_product_id'] != null) {$totalpriceofproduct = $getproduct['product_price'] * $cartget['cart_product_qty']; } 
+												elseif ($cartget['cart_product_id'] == null) {$totalpriceofproduct = $sliderget['slider_price'] * $cartget['cart_product_qty']; } 
+												
+												
 											?>
 												<tr>
 													<td>
-														<a class="no-select" href="<?php echo $productimageget['productphoto_imagepath'] ?>"><img src="<?php echo $productimageget['productphoto_imagepath'] ?>" alt="" class="img-responsive"></a>
+														<?php if ($cartget['cart_product_id'] != null) { ?><a class="no-select" href="<?php echo $productimageget['productphoto_imagepath'] ?>"> <img src="<?php echo $productimageget['productphoto_imagepath'] ?>" alt="" class="img-responsive"> </a><?php } elseif ($cartget['cart_product_id'] == null) { ?> <img src="images/bg-4.jpg"  style="border: none;" class="img-responsive"> <?php } ?>
 													</td>
-													<td><a class="no-select" href="product.htm"><?php echo $getproduct['product_name'] ?></a><br class="no-select"><span class="no-select">Category: <?php echo $categoryget['category_name'] ?></span></td>
+													<td><a class="no-select" href="product.htm"> <?php if ($cartget['cart_product_id'] != null) { echo $getproduct['product_name']; } elseif ($cartget['cart_product_id'] == null) { echo $sliderget['slider_name']; } ?></a><br class="no-select"><span class="no-select">Category: <?php if ($cartget['cart_product_id'] != null) { echo $categoryget['category_name']; } elseif ($cartget['cart_product_id'] == null) { echo "none"; } ?></span></td>
 													<td><?php echo $cartget['cart_product_qty'] ?>x</td>
 													<td>$<?php echo $totalpriceofproduct ?></td>
 													<td><a class="no-select" href="nedmin/netting/process.php?cart_id=<?php echo $cartget['cart_id'] ?>&deletecartheader=true"><i class="fa fa-times-circle fa-2x"></i></a></td>

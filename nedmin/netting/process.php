@@ -856,6 +856,34 @@ if (isset($_POST['addtocart'])) {
     else header("Location: ../../index.php?status=fail");
 }
 
+if (isset($_POST['sliderbundleaddtocart'])) {
+
+
+    if (!isset($_SESSION['useraccountmail'])) {
+        header("Location:../../register.php?status=notregistered");
+    } else {
+        $askaccount = $db->prepare("SELECT * FROM account where account_mail=:mail");
+        $askaccount->execute(array(
+            'mail' => $_SESSION['useraccountmail']
+        ));
+        $accountget = $askaccount->fetch(PDO::FETCH_ASSOC);
+
+        $save = $db->prepare("INSERT INTO cart SET 
+        cart_product_qty=:cart_product_qty,
+        cart_account_id=:cart_account_id,
+        cart_slider_id=:cart_slider_id");
+
+        $insert = $save->execute(array(
+            'cart_product_qty' => 1,
+            'cart_account_id' => $accountget['account_id'],
+            'cart_slider_id' => $_POST['slider_id']
+        ));
+
+        if ($insert) header("Location: ../../cart.php?status=sucsess");
+
+        else header("Location: ../../index.php?status=fail");
+    }
+}
 
 if (isset($_POST['productphotodelete'])) {
 

@@ -16,7 +16,13 @@
                         <div class="inner">
                             <h1><?php echo $sliderget['slider_title'] ?></h1>
                             <div class="slider-description"><?php echo $sliderget['slider_desc'] ?></div>
-                            <a href="<?php echo $sliderget['slider_link'] ?>"> <button class="btn btn-default btn-red btn-lg">Add to cart</button></a>
+                            <a>
+                                <form action="nedmin/netting/process.php" method="POST">
+                                    <input type="hidden" value="<?php echo $sliderget['slider_id'] ?>" name="slider_id">
+                                    <input type="hidden" value="<?php echo $_SESSION['useraccountmail'] ?>" name="account_id">
+                                    <button type="submit" name="sliderbundleaddtocart" class="btn btn-default btn-red btn-lg">Add to cart</button>
+                                </form>
+                            </a>
                         </div>
                         <div class="inner">
                             <div class="pro-pricetag big-deal">
@@ -29,7 +35,7 @@
                         </div>
                     </div>
                     <div class="slide-type-1">
-                        <a href="<?php echo $sliderget['slider_link'] ?>"> <img src="<?php echo $sliderget['slider_imagepath'] ?>" style="width: 940px; height: 378px;" alt="" class="img-responsive"> </a>
+                        <a> <img src="<?php echo $sliderget['slider_imagepath'] ?>" style="width: 940px; height: 378px;" alt="" class="img-responsive"> </a>
                     </div>
                 </div>
         <?php }
