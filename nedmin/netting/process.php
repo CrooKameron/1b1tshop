@@ -1,4 +1,4 @@
-<?php
+    <?php
 error_reporting(~E_NOTICE);
 ob_start();
 session_start();
@@ -42,15 +42,10 @@ if (isset($_POST['registeraccount'])) {
 
 
     if ($password1 == $password2) {
-
-
         if (strlen($password1) > 6) {
 
             $askaccount = $db->prepare("SELECT * FROM account where account_mail=:mail");
-            $askaccount->execute(array(
-                'mail' => $account_mail
-            ));
-
+            $askaccount->execute(array('mail' => $account_mail));
             $count = $askaccount->rowCount();
 
             if ($count == 0) {
@@ -75,15 +70,10 @@ if (isset($_POST['registeraccount'])) {
                 if ($insert) {
                     $_SESSION['useraccountmail'] = $account_mail;
                     header("Location:../../?status=login_success");
-                } else {
-                    header("Location:../../register.php?status=unknownfail");
-                }
-            } else {
-                header("Location:../../register.php?status=mailalreadyinuse");
-            }
-        } else {
-            header("Location:../../register.php?status=passwordtooshort");
-        }
+                } else header("Location:../../register.php?status=unknownfail");
+            } else header("Location:../../register.php?status=mailalreadyinuse");
+        } else header("Location:../../register.php?status=passwordtooshort");
+        
     } else {
         header("Location:../../register.php?status=passwordsdoesntmatch");
     }
@@ -152,20 +142,13 @@ if (isset($_POST['updateaccountdetails2'])) {
                     ));
 
                     if ($update) header('Location:../../index.php?status=update_success');
-
+                    
                     else header('Location:../../account-details.php?status=unknownfail');
-                } else {
-                    header('Location:../../account-details.php?status=passwordcantbesame');
-                }
-            } else {
-                header('Location:../../account-details.php?status=passwordtooshort');
-            }
-        } else {
-            header('Location:../../account-details.php?status=passwordsdoesntmatch');
-        }
-    } else {
-        header('Location:../../account-details.php?status=incorrectpassword');
-    }
+
+                } else header('Location:../../account-details.php?status=passwordcantbesame');
+            } else header('Location:../../account-details.php?status=passwordtooshort');
+        } else header('Location:../../account-details.php?status=passwordsdoesntmatch');
+    } else header('Location:../../account-details.php?status=incorrectpassword');
 }
 
 if (isset($_POST['adminlogin'])) {
